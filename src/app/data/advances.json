@@ -1,35 +1,318 @@
-{
+[  
+    {
+        "key": "A", "name": "The Heavens",
+        "category": "science",
+        "cost": 30,
+        "credit": 20,
+        "researchable": true,
+        "relief": 5,
+        "misery": false,
+        "prerequisites": [],
+        "description": "Allows transit of one sea as a Costal Province."
+    },
+    
+    {
+        "key": "B", "name": "Human body",
+        "category": "science",
+        "cost": 60,
+        "credit": 20,
+        "researchable": true,
+        "relief": 10,
+        "misery": false,
+        "prerequisites": [],
+        "description": "Reduses Misery one space. Lessens Mystism Mistery."
+    },
+    
+    {
+        "key": "C", "name": "Laws of Matter",
+        "category": "science",
+        "cost": 90,
+        "credit": 20,
+        "researchable": true,
+        "relief": 10,
+        "misery": false,
+        "prerequisites": [],
+        "description": "Voids Alchemy and lessens Mystism Mistery."
+    },
+    
+    {
+        "key": "D", "name": "Enlightenment",
+        "category": "science",
+        "cost": 120,
+        "credit": 20,
+        "researchable": true,
+        "relief": 50,
+        "misery": false,
+        "prerequisites": [],
+        "description": "Halves Misery Relief price and lessens Mystism Mistery."
+    },
 
-    [A] The Heavens
-    [B] Human body
-    [C] Laws of Matter
-    [D] Enlightenment
+    
+    {
+        "key": "E", "name": "Patronage",
+        "category": "religion",
+        "cost": 30,
+        "credit": 20,
+        "researchable": false,
+        "relief": 5,
+        "misery": true,
+        "prerequisites": [],
+        "description": "Allows investment in Leadesr played by other players."
+    },
+    
+    {
+        "key": "F", "name": "Holy Indulgence",
+        "category": "religion",
+        "cost": 60,
+        "credit": 20,
+        "researchable": false,
+        "relief": 5,
+        "misery": true,
+        "prerequisites": [],
+        "description": "Collect two Expansion tokens per turn from each non-owner."
+    },
+    
+    {
+        "key": "G", "name": "Proselytism",
+        "category": "religion",
+        "cost": 90,
+        "credit": 20,
+        "researchable": false,
+        "relief": 5,
+        "misery": true,
+        "prerequisites": [],
+        "description": "Win attacks also if red die matches Order of play."
+    },
+    
+    {
+        "key": "H", "name": "Cathedral",
+        "category": "religion",
+        "cost": 120,
+        "credit": 20,
+        "researchable": false,
+        "relief": 5,
+        "misery": true,
+        "prerequisites": ["F"],
+        "description": "Automatically wins one attack per turn vs each non-owner."
+    },
 
-    [E] Patronage
-    [F] Holy Indulgence
-    [G] Proselytism
-    [H] Cathedral
+    
+    {
+        "key": "I", "name": "Caravan",
+        "category": "commerce",
+        "cost": 20,
+        "credit": 10,
+        "researchable": true,
+        "relief": 5,
+        "misery": false,
+        "prerequisites": [],
+        "description": "Place tokens through adjancent uncontrolled province."
+    },
+    
+    {
+        "key": "J", "name": "Wind/Watermill",
+        "category": "commerce",
+        "cost": 40,
+        "credit": 10,
+        "researchable": true,
+        "relief": 5,
+        "misery": false,
+        "prerequisites": ["I"],
+        "description": "Buy one trade attempt with defeated Market. dr <= Market #"
+    },
+    
+    {
+        "key": "K", "name": "Improved Agriculture",
+        "category": "commerce",
+        "cost": 50,
+        "credit": 10,
+        "researchable": true,
+        "relief": 25,
+        "misery": false,
+        "prerequisites": ["I","J"],
+        "description": "Reduces Misery one space. Reduces effect of Famine."
+    },
+    
+    {
+        "key": "L", "name": "Interest & Profit",
+        "category": "commerce",
+        "cost": 80,
+        "credit": 10,
+        "researchable": true,
+        "relief": 0,
+        "misery": false,
+        "prerequisites": ["I", "J", "K"],
+        "description": "Doubles cash after Expansion, up to value of income."
+    },
+    
+    {
+        "key": "M", "name": "Industry",
+        "category": "commerce",
+        "cost": 110,
+        "credit": 0,
+        "researchable": true,
+        "relief": 5,
+        "misery": false,
+        "prerequisites": ["I", "J", "K", "L"],
+        "description": "Increases commody value by one payment box."
+    },
 
-    [I] Caravan
-    [J] Wind/Watermill
-    [K] Improved Agriculture
-    [L] Interest & Profit
-    [M] Industry
+    
+    {
+        "key": "N", "name": "Written Record",
+        "category": "communications",
+        "cost": 30,
+        "credit": 10,
+        "researchable": true,
+        "relief": 5,
+        "misery": false,
+        "prerequisites": [],
+        "description": "Increases Leader credits by $10 (including Patronage claims"
+    },
+    
+    {
+        "key": "O", "name": "Printed Word",
+        "category": "communications",
+        "cost": 60,
+        "credit": 10,
+        "researchable": true,
+        "relief": 10,
+        "misery": false,
+        "prerequisites": ["N"],
+        "description": "Earns Leader Discount Rebate for any owned Advance."
+    },
+    
+    {
+        "key": "P", "name": "Master Art",
+        "category": "communications",
+        "cost": 90,
+        "credit": 10,
+        "researchable": true,
+        "relief": 5,
+        "misery": false,
+        "prerequisites": ["N", "O"],
+        "description": "May discard one card per turn without effect during Buy phase"
+    },
+    
+    {
+        "key": "Q", "name": "Renaissance",
+        "category": "communications",
+        "cost": 120,
+        "credit": 0,
+        "researchable": true,
+        "relief": 100,
+        "misery": false,
+        "prerequisites": ["N", "O", "P"],
+        "description": "Once/turn trades Order of Play with adjacent non-owner."
+    },
 
-    [N] Written Record
-    [O] Printed Word
-    [P] Master art
-    [Q] Renaissance
+    
+    {
+        "key": "R", "name": "Overland east",
+        "category": "exploration",
+        "cost": 40,
+        "credit": 20,
+        "researchable": true,
+        "relief": 5,
+        "misery": false,
+        "prerequisites": [],
+        "description": "Allows transit of Area V"
+    },
+    
+    {
+        "key": "S", "name": "Seaworthy vessels",
+        "category": "exploration",
+        "cost": 80,
+        "credit": 20,
+        "researchable": true,
+        "relief": 5,
+        "misery": false,
+        "prerequisites": [],
+        "description": "May eter all Coalstal Provices except Far East and New World"
+    },
+    
+    {
+        "key": "T", "name": "Ocean navigation",
+        "category": "exploration",
+        "cost": 120,
+        "credit": 20,
+        "researchable": true,
+        "relief": 5,
+        "misery": false,
+        "prerequisites": ["A", "S"],
+        "description": "Allows transit of Far East"
+    },
+    
+    {
+        "key": "U", "name": "New world",
+        "category": "exploration",
+        "cost": 160,
+        "credit": 20,
+        "researchable": true,
+        "relief": 25,
+        "misery": false,
+        "prerequisites": ["V", "T"],
+        "description": "May enter New World. Reduces Misery one space during Income Phase"
+    },
 
-    [R] Overland east
-    [S] Seaworthy vessels
-    [T] Ocean navigation
-    [U] New world
-
-    [V] Urban Ascendancy
-    [W] Nationalism
-    [X] Institutional Research
-    [Y] Cosmopolitan
-    [Z] Middle Class
-
-}
+    
+    {
+        "key": "V", "name": "Urban Ascendancy",
+        "category": "civics",
+        "cost": 20,
+        "credit": 10,
+        "researchable": false,
+        "relief": 5,
+        "misery": false,
+        "prerequisites": [],
+        "description": "May buy one extra card for $10 each turn."
+    },
+    
+    {
+        "key": "W", "name": "Nationalism",
+        "category": "civics",
+        "cost": 60,
+        "credit": 20,
+        "researchable": false,
+        "relief": 5,
+        "misery": false,
+        "prerequisites": [],
+        "description": "Adds 1 to all attack totals in Home Area."
+    },
+    
+    {
+        "key": "X", "name": "Institutional Research",
+        "category": "civics",
+        "cost": 100,
+        "credit": 30,
+        "researchable": false,
+        "relief": 10,
+        "misery": false,
+        "prerequisites": [],
+        "description": "Provides 10 Credit for any Advance except Civics & Religion."
+    },
+    
+    {
+        "key": "Y", "name": "Cosmopolitan",
+        "category": "civics",
+        "cost": 150,
+        "credit": 40,
+        "researchable": false,
+        "relief": 25,
+        "misery": false,
+        "prerequisites": ["R"],
+        "description": "Controlled Satellites add to adjacent provice attacks."
+    },
+    
+    {
+        "key": "Z", "name": "Middle Class",
+        "category": "civics",
+        "cost": 170,
+        "credit": 50,
+        "researchable": false,
+        "relief": 50,
+        "misery": false,
+        "prerequisites": ["K"],
+        "description": "Increases Income by $10/turn. Halves stabilization costs."
+    }
+]

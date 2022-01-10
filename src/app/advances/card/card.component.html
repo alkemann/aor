@@ -1,0 +1,24 @@
+<div class="advance">
+    <table class="adv" cellSpacing="0" cellPadding="0">
+        <tr>
+            <th class="adv-research">
+                <span *ngIf="researchable">
+                    [<span *ngIf="playerHasIR; else checkbox">X</span>]
+                    <ng-template #checkbox>&nbsp;</ng-template>
+                    10 Cr Research [X]
+                </span>
+            </th>
+            <th colspan="5" class="adv-title">
+                &copy; {{category}} ({{total}})
+            </th>
+        </tr>
+        <tr *ngFor="let adv of advances">
+            <td class="adv-level">{{adv.key}} - {{adv.name}}</td>
+            <td class="adv-price">{{adv.cost}}</td>
+            <td class="adv-cred">{{adv.credit}} CR</td>
+            <td class="adv-mr">{{adv.relief}} MR</td>
+            <td class="adv-desc">{{adv.description}}</td>
+            <td class="adv-preq">Prerequisite: -</td>
+        </tr>
+    </table>
+</div>

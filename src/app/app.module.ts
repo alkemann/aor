@@ -9,7 +9,7 @@ import { AdvancesComponent } from './advances/advances.component';
 import { StartComponent } from './start/start.component';
 import { EndComponent } from './end/end.component';
 import { PlayerTableComponent } from './players/player-table/player-table.component';
-import { ScienceComponent } from './advances/science/science.component';
+import { CardComponent } from './advances/card/card.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { ScienceComponent } from './advances/science/science.component';
     StartComponent,
     EndComponent,
     PlayerTableComponent,
-    ScienceComponent
+    CardComponent
   ],
   imports: [
     BrowserModule,

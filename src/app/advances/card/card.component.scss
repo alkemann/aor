@@ -1,5 +1,6 @@
 table.adv{
     border: 1px solid lightblue;
+    margin: 0 1em 1em;
     .adv-research {
         font-size: 0.8em;
     }
@@ -8,6 +9,7 @@ table.adv{
         font-weight: bold;
         text-align: left;
         padding-left: 1em;
+        text-transform: capitalize;
     }
     tr:nth-child(even) {
         background-color: lightblue;
