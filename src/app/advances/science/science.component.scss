@@ -1,0 +1,40 @@
+table.adv{
+    border: 1px solid lightblue;
+    .adv-research {
+        font-size: 0.8em;
+    }
+    .adv-title {
+        font-size:  2em;
+        font-weight: bold;
+        text-align: left;
+        padding-left: 1em;
+    }
+    tr:nth-child(even) {
+        background-color: lightblue;
+
+    }
+    tr:nth-child(odd) {
+    }
+    td {
+        white-space: nowrap;
+        vertical-align: top;
+        padding: 3px 0.35em;
+    }
+    td.adv-level {
+        font-weight: bold;
+    }
+    td.adv-price, td.adv-cred, td.adv-mr  {
+        text-align: right;
+        font-size: 0.75em;
+    }
+    td.adv-price {
+        font-weight: bold;
+    }
+    td.adv-preq {
+        font-size: 0.65em;
+    }
+    td.adv-desc {
+        white-space: break-spaces;
+    }
+
+}

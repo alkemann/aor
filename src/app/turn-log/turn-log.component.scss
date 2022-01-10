@@ -1,0 +1,40 @@
+table#bids {
+    border: none;
+    tr , th{
+        margin: 0;
+        padding: 0;
+    }
+    td {
+        padding: 2px;
+        margin: 0;
+    }
+    th {
+        border-top: black 1px solid;
+        border-left: black 1px solid;
+        border-right: black 1px solid;
+        border-bottom: none;
+        font-size: 0.6em;
+        padding: 1px;
+    }
+    td input {
+        width: 70px;
+    }
+    td {
+        border-top: none;
+        border-left: black 1px solid;
+        border-right: black 1px solid;
+        border-bottom: black 1px solid;
+    }
+}
+
+table#turns {
+    th, td {
+        padding: 2px 0.5em;
+        border: 1px solid black;
+    }
+}
+
+div#content {
+    text-align: center;
+    margin: 0 2em;
+}
