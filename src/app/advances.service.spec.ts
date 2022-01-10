@@ -1,3 +1,4 @@
+import { Advance } from 'src/app/advances.service';
 import { TestBed } from '@angular/core/testing';
 
 import { AdvancesService } from './advances.service';
@@ -12,5 +13,10 @@ describe('AdvancesService', () => {
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('key A is The Heavens', () => {
+    const a : Advance = service.byKey('A');
+    expect(a.name).toEqual("The Heavens");
   });
 });

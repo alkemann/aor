@@ -39,4 +39,16 @@ export class AdvancesService {
     return out;
   }
 
+  byKey(key: string): Advance {
+    for (const key in this.data) {
+      if (Object.prototype.hasOwnProperty.call(this.data, key)) {
+        const element = this.data[key];
+        if (element && element?.key == key ) {
+          return element;
+        }
+      }
+    }
+    throw new Error("Key [" + key + "] not found!");
+  }
+
 }
