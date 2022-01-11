@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-turn-log',
+  selector: 'aor-turn-log',
   templateUrl: './turn-log.component.html',
   styleUrls: ['./turn-log.component.scss']
 })

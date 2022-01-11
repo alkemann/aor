@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-player-table',
+  selector: 'aor-player-table',
   templateUrl: './player-table.component.html',
   styleUrls: ['./player-table.component.scss']
 })

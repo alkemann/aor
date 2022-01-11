@@ -3,13 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TurnLogComponent } from './turn-log/turn-log.component';
-import { PlayersComponent } from './players/players.component';
-import { AdvancesComponent } from './advances/advances.component';
-import { StartComponent } from './start/start.component';
-import { EndComponent } from './end/end.component';
-import { PlayerTableComponent } from './players/player-table/player-table.component';
-import { CardComponent } from './advances/card/card.component';
+import { TurnLogComponent } from './ui/turn-log/turn-log.component';
+import { PlayersComponent } from './ui/players/players.component';
+import { AdvancesComponent } from './ui/advances/advances.component';
+import { StartComponent } from './ui/start/start.component';
+import { EndComponent } from './ui/end/end.component';
+import { PlayerTableComponent } from './ui/players/player-table/player-table.component';
+import { CardComponent } from './ui/advances/card/card.component';
 
 @NgModule({
   declarations: [

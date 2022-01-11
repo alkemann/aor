@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { StartComponent } from './start/start.component';
-import { TurnLogComponent } from './turn-log/turn-log.component';
-import { AdvancesComponent } from './advances/advances.component';
-import { PlayersComponent } from './players/players.component';
-import { EndComponent } from './end/end.component';
+import { StartComponent } from './ui/start/start.component';
+import { TurnLogComponent } from './ui/turn-log/turn-log.component';
+import { AdvancesComponent } from './ui/advances/advances.component';
+import { PlayersComponent } from './ui/players/players.component';
+import { EndComponent } from './ui/end/end.component';
 
 const routes: Routes = [
   { path: 'start', component: StartComponent },

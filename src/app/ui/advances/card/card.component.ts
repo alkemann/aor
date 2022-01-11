@@ -3,7 +3,7 @@ import { Advance } from 'src/app/interfaces/advance';
 import { AdvancesService } from 'src/app/services/advances.service';
 
 @Component({
-  selector: 'app-adv-card',
+  selector: 'aor-adv-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })

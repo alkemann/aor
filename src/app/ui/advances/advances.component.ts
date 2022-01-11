@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-advances',
+  selector: 'aor-advances',
   templateUrl: './advances.component.html',
   styleUrls: ['./advances.component.scss']
 })
