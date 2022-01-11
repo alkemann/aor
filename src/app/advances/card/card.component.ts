@@ -1,7 +1,6 @@
-import { AdvancesService } from './../../advances.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { Advance } from 'src/app/advances.service';
-// import * as data from '/data/advances.json'
+import { Advance } from 'src/app/interfaces/advance';
+import { AdvancesService } from 'src/app/services/advances.service';
 
 @Component({
   selector: 'app-adv-card',
