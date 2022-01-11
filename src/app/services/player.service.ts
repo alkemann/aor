@@ -1,18 +1,13 @@
 import { Injectable } from '@angular/core';
-
-export interface Player {
-  gold: number,
-  bought: string[]
-
-}
+import { Player as PlayerInterface } from '../interfaces/player';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayerService {
 
-  player: Player;
-  players: Player[] = [];
+  player: PlayerInterface;
+  players: PlayerInterface[] = [];
 
   constructor() {
     this.player = this.newPlayer();
@@ -26,7 +21,7 @@ export class PlayerService {
     this.player.gold -= amount;
   }
 
-  newPlayer(): Player {
+  newPlayer(): PlayerInterface {
     throw new Error('Function not implemented.');
   }
   
