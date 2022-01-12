@@ -1,8 +1,8 @@
 export enum Nation {
-    Hamburg,
-    Paris,
-    London,
-    Barcelona,
-    Venice,
-    Genova
+    Hamburg = 'Hamburg',
+    Paris = "Paris",
+    London = "London",
+    Barcelona = "Barcelona",
+    Venice = "Venice",
+    Genova = "Genova"
 }

@@ -14,9 +14,8 @@ export class GameService {
     this.game = new Game();
   }
 
-  public addPlayer(name: string, $: number, nation: Nation): void
-  {
-    this.game.addPlayer(name, $, nation);
+  public addBid(name: string, $: number, nation: Nation): void {
+    this.game.addBid(name, $, nation);
   }
 
   public get bids() : Bid[] {

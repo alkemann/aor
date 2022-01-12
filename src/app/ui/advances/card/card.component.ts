@@ -9,8 +9,9 @@ import { AdvancesService } from 'src/app/services/advances.service';
 })
 export class CardComponent implements OnInit {
 
+  @Input() category: string ;
+
   public advances: Advance[] = [];
-  @Input() category: string  = '';
   public total: number = 0;
   public playerHasIR: boolean = false;
   public researchable: boolean = false;

@@ -11,11 +11,7 @@
     </tr>
     <tr>
         <td><input type="number" /></td>
-        <td><input type="text" /></td>
-        <td><input type="text" /></td>
-        <td><input type="text" /></td>
-        <td><input type="text" /></td>
-        <td><input type="text" /></td>
+        <td *ngFor="let bid of gameService.bids">{{bid.name}}<br>{{bid.nation}} ({{bid.$}})</td>
     </tr>
 </table>
 <br />
