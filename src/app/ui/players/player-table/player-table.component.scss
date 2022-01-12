@@ -3,13 +3,9 @@ table.players {
     font-size: 83%;
     margin:0 2em 2em 0;
     td {
-        border-bottom: 1px dashed lightblue;
         padding: 1px 2px;
     }
-    tr.trodd {
+    tr:nth-child(odd) {
         background-color: #add8e6;
-        td {
-            border-bottom: 1px dashed lightcyan;
-        }
     }
 }

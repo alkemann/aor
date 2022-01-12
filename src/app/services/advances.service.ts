@@ -2,10 +2,14 @@ import { Injectable } from '@angular/core';
 import { Advance } from '../interfaces/advance';
 import jsondata from '../data/advances.json';
 
+
+interface AdvanceList {
+  [key: string]: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
-
 export class AdvancesService {
 
   private data: Advance[];
@@ -24,6 +28,12 @@ export class AdvancesService {
         }
       }
     }
+    return out;
+  }
+
+  public get list(): AdvanceList {
+    let out:AdvanceList = {};
+    this.data.forEach(a => out[a.key] = a.name);
     return out;
   }
 

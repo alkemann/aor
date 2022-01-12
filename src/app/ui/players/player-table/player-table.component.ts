@@ -1,4 +1,7 @@
+import { PlayerService } from './../../../services/player.service';
+import { AdvancesService } from 'src/app/services/advances.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { Player } from 'src/app/models/player';
 
 @Component({
   selector: 'aor-player-table',
@@ -7,11 +10,17 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PlayerTableComponent implements OnInit {
 
-  @Input() name: string = 'ss';
+  @Input() player: Player;
 
-  constructor() { }
+  constructor(
+    public advanceService: AdvancesService,
+    private playerService: PlayerService
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  public touched(key:string) {
+    console.log(this.player.name +" toggle "+ key);
   }
 
 }

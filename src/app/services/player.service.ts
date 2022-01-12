@@ -1,28 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Player as PlayerInterface } from '../interfaces/player';
+import { Player } from '../models/player';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlayerService {
 
-  player: PlayerInterface;
-  players: PlayerInterface[] = [];
+  player: Player;
+  players: Player[] = [];
 
   constructor() {
     this.player = this.newPlayer();
+    this.players.push(this.newPlayer("Steffen"));
+    this.players.push(this.newPlayer("Erlend"));
+    this.players.push(this.newPlayer("Eirik"));
+    this.players.push(this.newPlayer("Tord"));
   }
 
   addGold(amount: number): any {
-    this.player.gold += amount;
+    // this.player.$ += amount;
   }
 
   spendGold(amount: number): any {
-    this.player.gold -= amount;
+    // this.player.$ -= amount;
   }
 
-  newPlayer(): PlayerInterface {
-    throw new Error('Function not implemented.');
+  newPlayer(name : string = "player"): Player {
+    return new Player(name);
   }
-  
+
 }

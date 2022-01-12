@@ -1,3 +1,4 @@
+import { PlayerService } from './../../services/player.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,13 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayersComponent implements OnInit {
 
-  public players: string[];
+  constructor(public playerService: PlayerService) {}
 
-  constructor() { 
-    this.players = ["Erlend", "Tord", "Steffen", "Alexander", "Daniel"];
-  }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }
