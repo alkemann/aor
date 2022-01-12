@@ -14,11 +14,13 @@ export class AdvancesService {
 
   private data: Advance[];
 
-  constructor() {
+  constructor()
+  {
     this.data = jsondata;
   }
 
-  public allByCategory(category: string): Advance[] {
+  public allByCategory(category: string): Advance[]
+  {
     let out = [];
     for (const key in this.data) {
       if (Object.prototype.hasOwnProperty.call(this.data, key)) {

@@ -10,15 +10,15 @@ export class GameService {
 
   private game : Game;
 
-  constructor() { 
+  constructor()
+  {
     this.game = new Game();
   }
 
-  public addBid(name: string, $: number, nation: Nation): void {
+  public addBid(name: string, $: number, nation: Nation): void
+  {
     this.game.addBid(name, $, nation);
   }
 
-  public get bids() : Bid[] {
-    return this.game.bids;
-  }
+  public get bids() : Bid[] { return this.game.bids; }
 }

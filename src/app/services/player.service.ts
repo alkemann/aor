@@ -9,7 +9,8 @@ export class PlayerService {
   player: Player;
   players: Player[] = [];
 
-  constructor() {
+  constructor()
+  {
     this.player = this.newPlayer();
     this.players.push(this.newPlayer("Steffen"));
     this.players.push(this.newPlayer("Erlend"));
@@ -17,15 +18,18 @@ export class PlayerService {
     this.players.push(this.newPlayer("Tord"));
   }
 
-  addGold(amount: number): any {
+  addGold(amount: number): any
+  {
     // this.player.$ += amount;
   }
 
-  spendGold(amount: number): any {
+  spendGold(amount: number): any
+  {
     // this.player.$ -= amount;
   }
 
-  newPlayer(name : string = "player"): Player {
+  newPlayer(name : string = "player"): Player
+  {
     return new Player(name);
   }
 

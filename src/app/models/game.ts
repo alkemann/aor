@@ -6,7 +6,8 @@ export class Game {
 
     private _bids: Bid[] = [];
 
-    public get bids() : Bid[] {
+    public get bids() : Bid[]
+    {
         return this._bids;
     }
 
