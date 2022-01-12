@@ -6,6 +6,9 @@ import jsondata from '../data/advances.json';
 interface AdvanceList {
   [key: string]: string;
 }
+interface CategoryList {
+  [key: string]: AdvanceList
+}
 
 @Injectable({
   providedIn: 'root'
@@ -33,13 +36,23 @@ export class AdvancesService {
     return out;
   }
 
-  public get list(): AdvanceList {
-    let out:AdvanceList = {};
-    this.data.forEach(a => out[a.key] = a.name);
+  public get list(): CategoryList
+  {
+    let out:CategoryList = {}
+    this.data.forEach(a => out[a.category] = {}); // initiate categories
+    this.data.forEach(a => out[a.category][a.key] = a.name);
     return out;
   }
 
-  byKey(key: string): Advance {
+  public get categories(): any[]
+  {
+    let out = new Set();
+    this.data.forEach(a => out.add(a.category));
+    return Array.from(out);
+  }
+
+  byKey(key: string): Advance
+  {
     for (const key in this.data) {
       if (Object.prototype.hasOwnProperty.call(this.data, key)) {
         const element = this.data[key];

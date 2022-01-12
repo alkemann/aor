@@ -22,14 +22,19 @@ export class Player {
         return this.purchased.has(letter);
     }
 
-    public buy(adv: Advance): void {
-        this._gold -= adv.cost; // @TODO apply credits
-        this.purchased.push(adv.key);
-        this.purchased.sort();
+    public toggle(adv: string): void
+    {
+        if (this.purchased.has(adv)) {
+            this.purchased.delete(adv);
+        } else {
+            this.purchased.add(adv);
+        }
     }
 
-    public get advances(): string[] {
-        return this.purchased;
+    public buy(adv: Advance): void
+    {
+        this._gold -= adv.cost; // @TODO apply credits
+        this.purchased.add(adv.key);
     }
 
 }

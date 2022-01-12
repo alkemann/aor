@@ -3,7 +3,16 @@ table.players {
     font-size: 83%;
     margin:0 2em 2em 0;
     td {
-        padding: 1px 2px;
+        padding: 1px 3px;
+    }
+    td.pointer { cursor: pointer; }
+    th {
+        font-size: 1.2em;
+        padding: 3px 0;
+    }
+    th.category {
+        padding-top: 0.25em;
+        text-transform: capitalize;
     }
     tr:nth-child(odd) {
         background-color: #add8e6;

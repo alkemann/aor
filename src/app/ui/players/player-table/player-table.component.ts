@@ -19,8 +19,4 @@ export class PlayerTableComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  public touched(key:string) {
-    console.log(this.player.name +" toggle "+ key);
-  }
-
 }
