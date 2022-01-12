@@ -9,7 +9,7 @@
                 </span>
             </th>
             <th colspan="5" class="adv-title">
-                &copy; {{category}} ({{total}})
+                {{symbol(category)}} {{category}} ({{total}})
             </th>
         </tr>
         <tr *ngFor="let adv of advances">
@@ -18,7 +18,7 @@
             <td class="adv-cred">{{adv.credit}} CR</td>
             <td class="adv-mr">{{adv.relief}} MR</td>
             <td class="adv-desc">{{adv.description}}</td>
-            <td class="adv-preq">Prerequisite: -</td>
+            <td class="adv-preq">Prerequisite: {{adv.prerequisites}}</td>
         </tr>
     </table>
 </div>

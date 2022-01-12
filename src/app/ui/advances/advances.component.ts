@@ -1,3 +1,4 @@
+import { AdvancesService } from 'src/app/services/advances.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdvancesComponent implements OnInit {
 
-  constructor() { }
+  constructor(public advancesService: AdvancesService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }

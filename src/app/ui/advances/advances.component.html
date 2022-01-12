@@ -1,9 +1,4 @@
 <br/>
 <div>
-    <aor-adv-card category="science"></aor-adv-card>
-    <aor-adv-card category="religion"></aor-adv-card>
-    <aor-adv-card category="commerce"></aor-adv-card>
-    <aor-adv-card category="communications"></aor-adv-card>
-    <aor-adv-card category="exploration"></aor-adv-card>
-    <aor-adv-card category="civics"></aor-adv-card>
+    <aor-adv-card *ngFor="let category of advancesService.categories" [category]="category"></aor-adv-card>
 </div>
