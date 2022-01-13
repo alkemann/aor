@@ -1,3 +1,4 @@
+import { Misery } from './misery';
 import { Advance } from './../interfaces/advance';
 
 
@@ -5,6 +6,7 @@ export class Player {
     private _name: string;
     private _gold: number;
     private purchased: Set<string>;
+    public misery: Misery;
     public cathedral: boolean = false;
 
     constructor(name: string)
@@ -12,6 +14,7 @@ export class Player {
         this._name = name;
         this._gold = 40;
         this.purchased = new Set(["A", "B", "E", "F"]);
+        this.misery = new Misery();
     }
 
     public get name(): string { return this._name; }
@@ -29,12 +32,6 @@ export class Player {
         } else {
             this.purchased.add(adv);
         }
-    }
-
-    public buy(adv: Advance): void
-    {
-        this._gold -= adv.cost; // @TODO apply credits
-        this.purchased.add(adv.key);
     }
 
 }

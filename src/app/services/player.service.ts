@@ -7,16 +7,9 @@ import { Player } from '../models/player';
 export class PlayerService {
 
   player: Player;
-  players: Player[] = [];
+  others: Player[] = [];
 
-  constructor()
-  {
-    this.player = this.newPlayer();
-    this.players.push(this.newPlayer("Steffen"));
-    this.players.push(this.newPlayer("Erlend"));
-    this.players.push(this.newPlayer("Eirik"));
-    this.players.push(this.newPlayer("Tord"));
-  }
+  constructor() {}
 
   addGold(amount: number): any
   {
@@ -28,9 +21,17 @@ export class PlayerService {
     // this.player.$ -= amount;
   }
 
-  newPlayer(name : string = "player"): Player
+  newPlayer(name: string = 'player'): void
   {
-    return new Player(name);
+    this.player = new Player(name);
+  }
+
+  newOtherPlayer(name : string|null): void
+  {
+    if (name === null) {
+      name = "other " + (this.others.length + 1);
+    }
+    this.others.push(new Player(name));
   }
 
 }
