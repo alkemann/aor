@@ -20,7 +20,7 @@
             <td>&#9632; {{RoundService.exploreTokens}}</td>
         </tr>
         <tr>
-            <th>Round cash</th>
+            <th>Written cash</th>
             <td>${{PlayerService.player.$}}</td>
         </tr>
         <tr *ngIf="PlayerService.player.owns('V')">
@@ -47,27 +47,11 @@
                 <button (click)="toggleStabilization()">Pay?</button>
             </td>
         </tr>
-        <tr>
+        <tr *ngIf="spending.onHand > 0">
             <th> + on Hand Stabilization</th>
             <td>${{RoundService.payingStabiliztion ? spending.onHand : 0}}</td>
         </tr>
-        <tr>
-            <th>
-                Tokens {{RoundService.tokens}}
-            </th>
-        </tr>
-        <tr>
-            <td class="buttons">
-                <button (click)="buyTokens(-5)">--</button> &nbsp;
-                <button (click)="buyTokens(-1)">-</button> &nbsp;
-                <button (click)="buyTokens(1)">+</button> &nbsp;
-                <button (click)="buyTokens(5)">++</button>
-            </td>
-        </tr>
-        <tr>
-            <th> + on Tokens</th>
-            <td class="top">${{RoundService.tokens}}</td>
-        </tr>
+
         <tr>
             <td>
                 <table>
@@ -114,7 +98,7 @@
             <td class="top">${{spending.onMisary}}</td>
         </tr>
         <tr>
-            <th> = Total:</th><td>${{spending.total}}</td>
+            <th> = Total:</th><td>${{spending.subtotal}}</td>
         </tr>
         <tr>
             <td colspan="2"> &nbsp; </td>
@@ -123,7 +107,7 @@
             <th>Started with</th><td>${{PlayerService.player.$}}</td>
         </tr>
         <tr>
-            <th> - spending</th><td>${{spending.total}}</td>
+            <th> - spending</th><td>${{spending.subtotal}}</td>
         </tr>
         <tr>
             <th> = Savings:</th><td>${{spending.savings}}</td>
@@ -132,14 +116,39 @@
             <th> + Interest & Profit</th>
             <td>${{spending.interest}}</td>
         </tr>
-        <tr *ngIf="spending.earnings != 0">
-            <th> + 10 Cities</th>
+        <tr>
+            <th>
+                <button (click)="cities(-1)">-</button> &nbsp;
+                <button (click)="cities(1)">+</button> &nbsp;
+                 + {{PlayerService.player.cities}} Cities</th>
             <td>${{spending.earnings}}</td>
         </tr>
         <tr *ngIf="spending.middleClass != 0">
             <th> + Middle Class</th>
             <td>${{spending.middleClass}}</td>
         </tr>
+
+        <tr>
+            <th>After Income</th>
+            <td>${{spending.afterIncome}}</td>
+        </tr>
+
+        <tr>
+            <td>Tokens {{RoundService.tokens}}</td>
+        </tr>
+        <tr>
+            <td class="buttons">
+                <button (click)="buyTokens(-5)">--</button> &nbsp;
+                <button (click)="buyTokens(-1)">-</button> &nbsp;
+                <button (click)="buyTokens(1)">+</button> &nbsp;
+                <button (click)="buyTokens(5)">++</button>
+            </td>
+        </tr>
+        <tr>
+            <th> + on Tokens</th>
+            <td class="top">${{RoundService.tokens}}</td>
+        </tr>
+
         <tr>
             <th> = Next turn cash</th>
             <td>${{spending.nextTurn}}</td>

@@ -29,11 +29,13 @@ export class GameService {
     this.addBid('Eirik', 5, Nation.Hamburg);
     this.addBid('Erlend', 0, Nation.Genova);
 
-    this.playerService.player.earn = 140;
-    this.playerService.player.toggle("I");
-    this.playerService.player.toggle("J");
-    this.playerService.player.toggle("K");
-    this.playerService.player.toggle("L");
+    // this.playerService.player.earn = 140;
+    // this.playerService.player.toggle("I");
+    // this.playerService.player.toggle("J");
+    // this.playerService.player.toggle("K");
+    // this.playerService.player.toggle("L");
+    // this.playerService.player.toggle("V");
+    // this.playerService.player.toggle("Z");
     // this.playerService.player.toggle("X");
   }
 

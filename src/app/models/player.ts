@@ -8,11 +8,12 @@ export class Player {
   private purchased: Set<string>;
   public misery: Misery;
   public cathedral: boolean = false;
+  public cities: number = 0;
 
   constructor(name: string) {
     this._name = name;
     this._gold = 40;
-    this.purchased = new Set(["A", "B", "E", "F"]);
+    this.purchased = new Set([]);
     this.misery = new Misery();
   }
 

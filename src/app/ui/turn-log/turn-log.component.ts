@@ -5,15 +5,16 @@ import { GameService } from 'src/app/services/game.service';
 
 type Spending = {
   onAdvances: number,
-  onTokens: number,
   onCard: number,
   onHand: number,
   onMisary: number,
-  total: number,
+  subtotal: number,
   savings: number,
   interest: number
   earnings: number,
   middleClass: number,
+  afterIncome: number,
+  onTokens: number,
   nextTurn: number,
 }
 
@@ -71,6 +72,11 @@ export class TurnLogComponent implements OnInit {
     this.miseryChange = this.createMiseryChange();
   }
 
+  public cities(n: number): void {
+    this.PlayerService.player.cities += n;
+    this.spending = this.createSpending();
+  }
+
   public handSize(n: number): void {
     this.RoundService.hand += n;
     this.spending = this.createSpending();
@@ -108,30 +114,32 @@ export class TurnLogComponent implements OnInit {
     const player = this.PlayerService.player;
     const playerHasClass = player.owns("Z");
     const onAdvances: number = this.onAdvances ?? 0;
-    const onTokens = this.RoundService.tokens;
     const onMisary = this.RoundService.relief;
     const onHand = this.RoundService.stabilizationCost;
     const onCard = this.RoundService.card ? 10 : 0;
-    let total = onAdvances + onTokens + onMisary + onCard;
+    let subtotal = onAdvances + onMisary + onCard;
     if (this.RoundService.payingStabiliztion) {
-      total += onHand;
+      subtotal += onHand;
     }
-    const savings = player.$ - total;
+    const savings = player.$ - subtotal;
     const interest = player.owns("L") ? savings : 0;
-    const earnings = 85; // from city count
+    const earnings = player.cities * 5;
     const middleClass = playerHasClass? 10 : 0;
-    const nextTurn = savings + interest + earnings + middleClass;
+    const afterIncome = savings + interest + earnings + middleClass;
+    const onTokens = this.RoundService.tokens;
+    const nextTurn = afterIncome - onTokens;
     return {
       onAdvances,
-      onTokens,
       onCard,
       onHand,
       onMisary,
-      total,
+      subtotal,
       savings,
       interest,
       earnings,
       middleClass,
+      afterIncome,
+      onTokens,
       nextTurn
     };
   }
