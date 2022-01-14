@@ -24,8 +24,7 @@ export class RoundService {
     private playerService: PlayerService
   ) { }
 
-  public get advanceCost(): number
-  {
+  public get advanceCost(): number {
     let out = 0;
     Array.from(this.buyingThisRound).forEach(
       k => out += this.cost(this.advancesService.byKey(k))
@@ -33,36 +32,31 @@ export class RoundService {
     return out;
   }
 
-  public cost(adv: Advance): number
-  {
+  public cost(adv: Advance): number {
     let cost = adv.points;
     cost -= (adv.researchable && this.playerHasIR) ? 10 : 0;
     this.advancesService
       .allByCategory(adv.category)
-      .forEach(a => cost -= this.playerService.player.owns(a.key) ? a.credit : 0 );
+      .forEach(a => cost -= this.playerService.player.owns(a.key) ? a.credit : 0);
 
     return Math.max(0, cost);
   }
 
-  public get playerHasIR(): boolean
-  {
+  public get playerHasIR(): boolean {
     // Remove buyCheck to not allow Institutional Research same round
     return this.playerService.player.owns("X") || this.buyCheck("X");
   }
 
-  public buyTokens(n: number): void
-  {
+  public buyTokens(n: number): void {
     const want = this._tokens + n;
     this._tokens = Math.min(36, Math.max(0, want));
   }
 
-  public buyCheck(adv: string): boolean
-  {
+  public buyCheck(adv: string): boolean {
     return this.buyingThisRound.has(adv);
   }
 
-  public buyAdvanceToggle(adv: string): boolean
-  {
+  public buyAdvanceToggle(adv: string): boolean {
     if (this.buyingThisRound.has(adv)) {
       this.buyingThisRound.delete(adv);
     } else {
@@ -71,15 +65,13 @@ export class RoundService {
     return false;
   }
 
-  public get relief(): number
-  {
-    let out:number = 0;
+  public get relief(): number {
+    let out: number = 0;
     // this.buyingThisRound.forEach(k => out += this.advancesService.byKey(k).misery );
     return out;
   }
 
-  public get advances(): Advance[]
-  {
+  public get advances(): Advance[] {
     let out: Advance[] = [];
     this.buyingThisRound.forEach(
       k => {
@@ -91,18 +83,16 @@ export class RoundService {
     return out;
   }
 
-  private startNextRound(tokens: number): void
-  {
+  private startNextRound(tokens: number): void {
     this.r++;
     this._tokens = 0;
     this._boughtTokens = tokens;
     this.buyingThisRound = new Set();
   }
 
-  public apply(): void
-  {
+  public apply(): void {
     const player = this.playerService.player;
-    this.buyingThisRound.forEach(k => player.add(k) );
+    this.buyingThisRound.forEach(k => player.add(k));
     player.spend = this.advanceCost;
     player.earn = 100;
   }

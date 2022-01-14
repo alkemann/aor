@@ -5,40 +5,33 @@ import { Nation } from './../enums/nation';
 
 export class Game {
 
-    private _bids: Bid[] = [];
+  private _bids: Bid[] = [];
 
-    public get bids() : Bid[]
-    {
-        return this._bids;
-    }
+  public get bids(): Bid[] {
+    return this._bids;
+  }
 
-    public addBid(name: string, $: number, nation: Nation): Bid
-    {
-        const bid = {name, $, nation};
-        this._bids.push(bid);
-        this._bids.sort((a,b) => a.$ > b.$ ? -1 : 1);
-        return bid;
-    }
+  public addBid(name: string, $: number, nation: Nation): Bid {
+    const bid = { name, $, nation };
+    this._bids.push(bid);
+    this._bids.sort((a, b) => a.$ > b.$ ? -1 : 1);
+    return bid;
+  }
 
-    public applyRound(): void
-    {
+  public applyRound(): void {
 
-    }
+  }
 
-    public buyAdvance(adv: Advance): void
-    {
+  public buyAdvance(adv: Advance): void {
 
-    }
+  }
 
-    public buyTokens(count: number): void
-    {
+  public buyTokens(count: number): void {
 
-    }
+  }
 
-    public buyCard(): void
-    {
+  public buyCard(): void {
 
-    }
-
+  }
 
 }

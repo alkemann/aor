@@ -16,7 +16,7 @@ type Spending = {
 @Component({
   selector: 'aor-turn-log',
   templateUrl: './turn-log.component.html',
-  styleUrls: [ './turn-log.component.scss']
+  styleUrls: ['./turn-log.component.scss']
 })
 export class TurnLogComponent implements OnInit {
 
@@ -27,22 +27,24 @@ export class TurnLogComponent implements OnInit {
   ) { }
 
   public spending: Spending;
-  private onAdvances ?: number;
+  private onAdvances?: number;
 
   ngOnInit(): void {
     this.onAdvances = this.RoundService.advanceCost;
     this.spending = this.createSpending();
   }
 
-  public buyTokens(n:number): void
-  {
+  public buyTokens(n: number): void {
     this.RoundService.buyTokens(n);
     this.spending = this.createSpending();
   }
 
-  createSpending(): Spending {
+  public buyMR(n: number): void {
+    // this.RoundService.
+  }
 
-    const onAdvances :number = this.onAdvances ?? 0;
+  createSpending(): Spending {
+    const onAdvances: number = this.onAdvances ?? 0;
     const onTokens = this.RoundService.tokens;
     const onMisary = 0;
     const onHand = 0;

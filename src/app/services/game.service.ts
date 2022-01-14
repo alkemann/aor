@@ -9,15 +9,13 @@ import { Game } from '../models/game';
 })
 export class GameService {
 
-  private game : Game;
+  private game: Game;
 
-  constructor(private playerService:PlayerService)
-  {
+  constructor(private playerService: PlayerService) {
     this.game = new Game();
   }
 
-  public start(): void
-  {
+  public start(): void {
     this.playerService.newPlayer("Alexander");
     this.playerService.newOtherPlayer("Steffen");
     this.playerService.newOtherPlayer("Erlend");
@@ -39,10 +37,9 @@ export class GameService {
     // this.playerService.player.toggle("X");
   }
 
-  public addBid(name: string, $: number, nation: Nation): void
-  {
+  public addBid(name: string, $: number, nation: Nation): void {
     this.game.addBid(name, $, nation);
   }
 
-  public get bids() : Bid[] { return this.game.bids; }
+  public get bids(): Bid[] { return this.game.bids; }
 }

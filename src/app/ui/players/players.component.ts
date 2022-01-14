@@ -8,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayersComponent implements OnInit {
 
-  constructor(public playerService: PlayerService) {}
+  constructor(public playerService: PlayerService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
 }

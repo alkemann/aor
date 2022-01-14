@@ -9,15 +9,13 @@ export class PlayerService {
   player: Player;
   others: Player[] = [];
 
-  constructor() {}
+  constructor() { }
 
-  newPlayer(name: string = 'player'): void
-  {
+  newPlayer(name: string = 'player'): void {
     this.player = new Player(name);
   }
 
-  newOtherPlayer(name : string|null): void
-  {
+  newOtherPlayer(name: string | null): void {
     if (name === null) {
       name = "other " + (this.others.length + 1);
     }

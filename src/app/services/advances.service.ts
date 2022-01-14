@@ -17,13 +17,11 @@ export class AdvancesService {
 
   private data: Advance[];
 
-  constructor()
-  {
+  constructor() {
     this.data = jsondata;
   }
 
-  public allByCategory(category: string): Advance[]
-  {
+  public allByCategory(category: string): Advance[] {
     let out = [];
     for (const key in this.data) {
       if (Object.prototype.hasOwnProperty.call(this.data, key)) {
@@ -36,23 +34,20 @@ export class AdvancesService {
     return out;
   }
 
-  public get list(): CategoryList
-  {
-    let out:CategoryList = {}
+  public get list(): CategoryList {
+    let out: CategoryList = {}
     this.data.forEach(a => out[a.category] = {}); // initiate categories
     this.data.forEach(a => out[a.category][a.key] = a.name);
     return out;
   }
 
-  public get categories(): any[]
-  {
+  public get categories(): any[] {
     let out = new Set();
     this.data.forEach(a => out.add(a.category));
     return Array.from(out);
   }
 
-  byKey(key: string): Advance
-  {
+  byKey(key: string): Advance {
     for (const i in this.data) {
       if (Object.prototype.hasOwnProperty.call(this.data, i)) {
         const element = this.data[i];

@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'Age of Renaissance assistent';
 
-  constructor(private gameService: GameService) {}
+  constructor(private gameService: GameService) { }
 
   ngOnInit(): void {
     this.gameService.start();

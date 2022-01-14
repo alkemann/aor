@@ -1,5 +1,5 @@
 
 export interface Player {
-    gold: number,
-    bought: string[]  
+  gold: number,
+  bought: string[]
 }

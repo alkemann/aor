@@ -5,10 +5,10 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { AdvancesService } from 'src/app/services/advances.service';
 
 type Sym = {
-  [key:string] : string
+  [key: string]: string
 }
 
-const symbols:Sym = {
+const symbols: Sym = {
   exploration: '✬',
   religion: '✞',
   communications: '✍',
@@ -24,7 +24,7 @@ const symbols:Sym = {
 })
 export class CardComponent implements OnInit {
 
-  @Input() category: string ;
+  @Input() category: string;
 
   public advances: Advance[] = [];
   public total: number = 0;
@@ -33,12 +33,11 @@ export class CardComponent implements OnInit {
     private advancesService: AdvancesService,
     public playerService: PlayerService,
     public roundService: RoundService
-  ) {}
+  ) { }
 
-  ngOnInit(): void
-  {
+  ngOnInit(): void {
     this.advances = this.advancesService.allByCategory(this.category);
-    this.advances.forEach( a => this.total += a.points );
+    this.advances.forEach(a => this.total += a.points);
   }
 
   public symbol(category: string): string { return symbols[category]; }
