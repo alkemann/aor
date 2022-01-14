@@ -11,16 +11,6 @@ export class PlayerService {
 
   constructor() {}
 
-  addGold(amount: number): any
-  {
-    // this.player.$ += amount;
-  }
-
-  spendGold(amount: number): any
-  {
-    // this.player.$ -= amount;
-  }
-
   newPlayer(name: string = 'player'): void
   {
     this.player = new Player(name);

@@ -26,7 +26,7 @@
             <ng-template #notOwned>
                 <td class="adv-level notowned">{{adv.key}} - {{adv.name}}</td>
                 <td><span *ngIf="roundService.buyCheck(adv.key); else blank">&check;</span><ng-template #blank>&nbsp;</ng-template></td>
-                <td class="adv-price notowned">${{roundService.cost(adv)}} ({{adv.cost}})</td>
+                <td class="adv-price notowned">${{roundService.cost(adv)}} ({{adv.points}})</td>
                 <td class="adv-cred notowned">{{adv.credit}} CR</td>
                 <td class="adv-mr notowned">{{adv.relief}} MR</td>
                 <td class="adv-desc notowned">{{adv.description}}</td>

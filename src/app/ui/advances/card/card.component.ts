@@ -38,7 +38,7 @@ export class CardComponent implements OnInit {
   ngOnInit(): void
   {
     this.advances = this.advancesService.allByCategory(this.category);
-    this.advances.forEach( a => this.total += a.cost );
+    this.advances.forEach( a => this.total += a.points );
   }
 
   public symbol(category: string): string { return symbols[category]; }

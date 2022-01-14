@@ -24,6 +24,15 @@ table#bids {
     }
 }
 
+table#spending {
+    th,td {
+        text-align: right;
+    }
+    td.buttons {
+        text-align: center;
+    }
+}
+
 table#turns {
     th, td {
         padding: 2px 0.5em;
@@ -32,6 +41,12 @@ table#turns {
 }
 
 div#content {
-    text-align: center;
     margin: 0 2em;
+    ol {
+        padding: 0;
+        margin: 0 0 1em;
+        li {
+            list-style: none;
+        }
+    }
 }

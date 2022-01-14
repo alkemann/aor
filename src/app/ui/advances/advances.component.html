@@ -1,6 +1,10 @@
 <br/>
 <div>
-    <div class="cost">Cost: {{roundService.advanceCost}}</div>
+    <div class="cost">
+        Capital: {{playerService.player.$}} |
+        Cost: {{roundService.advanceCost}} |
+        After: {{playerService.player.$ - roundService.advanceCost}}
+    </div>
     <aor-adv-card *ngFor="let category of advancesService.categories" [category]="category">
     </aor-adv-card>
 </div>

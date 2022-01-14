@@ -20,9 +20,21 @@ export class Player {
     public get name(): string { return this._name; }
     public get $(): number { return this._gold; }
 
+    set spend($: number) {
+        this._gold -= $;
+    }
+    set earn($: number) {
+        this._gold += $;
+    }
+
     public owns(letter: string): boolean
     {
         return this.purchased.has(letter);
+    }
+
+    public add(adv: string): void
+    {
+        this.purchased.add(adv);
     }
 
     public toggle(adv: string): void

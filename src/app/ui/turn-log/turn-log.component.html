@@ -1,11 +1,48 @@
 <div id="content">
 <h2>TURN LOG</h2>
 <table id="bids" [cellPadding]="0" [cellSpacing]="0" >
-    <tr><th [colSpan]="gameService.bids.length">Capital bids</th></tr>
+    <tr><th [colSpan]="GameService.bids.length">Capital bids</th></tr>
     <tr>
-        <td *ngFor="let bid of gameService.bids">{{bid.name}}<br>{{bid.nation}} ({{bid.$}})</td>
+        <td *ngFor="let bid of GameService.bids">{{bid.name}}<br>{{bid.nation}} ({{bid.$}})</td>
     </tr>
 </table>
+
+<br />
+<div>
+    <h3>This turn</h3>
+    <table id="spending" [cellPadding]="5" [cellSpacing]="5">
+        <tr>
+            <th>Tokens to spend</th><td>&#9632; {{RoundService.exploreTokens}}</td>
+        </tr>
+        <tr>
+            <th>Round cash</th><td>${{PlayerService.player.$}}</td>
+        </tr>
+        <tr *ngFor="let a of RoundService.advances">
+            <td class="tar">{{a.name}}</td><td>${{a.cost}}</td>
+        </tr>
+        <tr>
+            <th>On Advances:</th><td>${{spending.onAdvances}}</td>
+        </tr>
+        <tr>
+            <th>Tokens</th><td>${{RoundService.tokens}}</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="buttons">
+                <button (click)="RoundService.buyTokens(-5)">--</button> &nbsp;
+                <button (click)="RoundService.buyTokens(-1)">-</button> &nbsp;
+                <button (click)="RoundService.buyTokens(1)">+</button> &nbsp;
+                <button (click)="RoundService.buyTokens(5)">++</button>
+            </td>
+        </tr>
+        <tr>
+            <th>Total:</th><td>${{spending.total}}</td>
+        </tr>
+        <tr>
+            <th>Savings:</th><td>${{spending.savings}}</td>
+        </tr>
+    </table>
+</div>
+
 <br />
 <table id="turns" [cellPadding]="0" [cellSpacing]="0" >
     <tr>

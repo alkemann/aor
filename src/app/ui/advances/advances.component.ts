@@ -1,3 +1,4 @@
+import { PlayerService } from './../../services/player.service';
 import { RoundService } from './../../services/round.service';
 import { AdvancesService } from 'src/app/services/advances.service';
 import { Component } from '@angular/core';
@@ -11,7 +12,8 @@ export class AdvancesComponent {
 
   constructor(
     public advancesService: AdvancesService,
-    public roundService: RoundService
+    public roundService: RoundService,
+    public playerService: PlayerService
   ) { }
 
 }

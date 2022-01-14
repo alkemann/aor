@@ -11,6 +11,11 @@ export class RoundService {
 
   private buyingThisRound: Set<string> = new Set();
 
+  private _boughtTokens: number = 0;
+  public get exploreTokens(): number { return this._boughtTokens; };
+  private _tokens: number = 0;
+  public get tokens(): number { return this._tokens; }
+
   constructor(
     private advancesService: AdvancesService,
     private playerService: PlayerService
@@ -27,21 +32,25 @@ export class RoundService {
 
   public cost(adv: Advance): number
   {
-    let cost = adv.cost;
+    let cost = adv.points;
     cost -= (adv.researchable && this.playerHasIR) ? 10 : 0;
     this.advancesService
       .allByCategory(adv.category)
-      .forEach(a => cost -= this.player.owns(a.key) ? a.credit : 0 );
+      .forEach(a => cost -= this.playerService.player.owns(a.key) ? a.credit : 0 );
 
     return Math.max(0, cost);
   }
-
-  get player(): Player { return this.playerService.player; }
 
   public get playerHasIR(): boolean
   {
     // Remove buyCheck to not allow Institutional Research same round
     return this.playerService.player.owns("X") || this.buyCheck("X");
+  }
+
+  public buyTokens(n: number): void
+  {
+    const want = this._tokens + n;
+    this._tokens = Math.min(36, Math.max(0, want));
   }
 
   public buyCheck(adv: string): boolean
@@ -57,5 +66,33 @@ export class RoundService {
       this.buyingThisRound.add(adv);
     }
     return false;
+  }
+
+  public get advances(): Advance[]
+  {
+    let out: Advance[] = [];
+    this.buyingThisRound.forEach(
+      k => {
+        let a = this.advancesService.byKey(k);
+        a.cost = this.cost(a);
+        out.push(a);
+      }
+    )
+    return out;
+  }
+
+  private startNextRound(tokens: number): void
+  {
+    this._tokens = 0;
+    this._boughtTokens = tokens;
+    this.buyingThisRound = new Set();
+  }
+
+  public apply(): void
+  {
+    const player = this.playerService.player;
+    this.buyingThisRound.forEach(k => player.add(k) );
+    player.spend = this.advanceCost;
+    player.earn = 100;
   }
 }
