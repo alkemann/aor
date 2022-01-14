@@ -1,3 +1,4 @@
+import { Advance } from '../interfaces/advance';
 import { Bid } from '../interfaces/bid';
 import { Nation } from './../enums/nation';
 
@@ -18,5 +19,26 @@ export class Game {
         this._bids.sort((a,b) => a.$ > b.$ ? -1 : 1);
         return bid;
     }
+
+    public applyRound(): void
+    {
+
+    }
+
+    public buyAdvance(adv: Advance): void
+    {
+
+    }
+
+    public buyTokens(count: number): void
+    {
+
+    }
+
+    public buyCard(): void
+    {
+
+    }
+
 
 }

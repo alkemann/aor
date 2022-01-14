@@ -1,24 +1,39 @@
 <div class="advance">
     <table class="adv" cellSpacing="0" cellPadding="0">
         <tr>
-            <th class="adv-research">
-                <span *ngIf="researchable">
-                    [<span *ngIf="playerHasIR; else checkbox">X</span>]
-                    <ng-template #checkbox>&nbsp;</ng-template>
-                    10 Cr Research [X]
-                </span>
-            </th>
-            <th colspan="5" class="adv-title">
+            <th colspan="6" class="adv-title">
                 {{symbol(category)}} {{category}} ({{total}})
             </th>
+            <th class="adv-research" colspan="1">
+                <span *ngIf="researchable && playerHasIR">
+                    10 Cr Research [X]
+                </span>
+                &nbsp;
+            </th>
         </tr>
-        <tr *ngFor="let adv of advances">
-            <td class="adv-level">{{adv.key}} - {{adv.name}}</td>
-            <td class="adv-price">{{adv.cost}}</td>
-            <td class="adv-cred">{{adv.credit}} CR</td>
-            <td class="adv-mr">{{adv.relief}} MR</td>
-            <td class="adv-desc">{{adv.description}}</td>
-            <td class="adv-preq">Prerequisite: {{adv.prerequisites}}</td>
+        <tr *ngFor="let adv of advances" (click)="buyCallback(adv.key)">
+
+            <ng-template [ngIf]="owns(adv.key)" [ngIfElse]="notOwned">
+                <td class="adv-level">{{adv.key}} - {{adv.name}}</td>
+                <td>&nbsp;</td>
+                <td class="adv-price">OWN ({{adv.cost}})</td>
+                <td class="adv-cred">{{adv.credit}} CR</td>
+                <td class="adv-mr">{{adv.relief}} MR</td>
+                <td class="adv-desc">{{adv.description}}</td>
+                <td class="adv-preq">Prerequisite: {{adv.prerequisites}}</td>
+            </ng-template>
+
+            <ng-template #notOwned>
+
+                <td class="adv-level notowned">{{adv.key}} - {{adv.name}}</td>
+                <td><span *ngIf="buyCheck(adv.key); else blank">&check;</span><ng-template #blank>&nbsp;</ng-template></td>
+                <td class="adv-price notowned">${{cost(adv)}} ({{adv.cost}})</td>
+                <td class="adv-cred notowned">{{adv.credit}} CR</td>
+                <td class="adv-mr notowned">{{adv.relief}} MR</td>
+                <td class="adv-desc notowned">{{adv.description}}</td>
+                <td class="adv-preq notowned">Prerequisite: {{adv.prerequisites}}</td>
+            </ng-template>
+
         </tr>
     </table>
 </div>

@@ -30,6 +30,12 @@ export class GameService {
     this.addBid('Tord', 5, Nation.Venice);
     this.addBid('Eirik', 5, Nation.Hamburg);
     this.addBid('Erlend', 0, Nation.Genova);
+
+    this.playerService.player.toggle("I");
+    this.playerService.player.toggle("J");
+    this.playerService.player.toggle("K");
+    this.playerService.player.toggle("L");
+    this.playerService.player.toggle("X");
   }
 
   public addBid(name: string, $: number, nation: Nation): void

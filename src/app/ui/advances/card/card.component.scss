@@ -8,10 +8,9 @@ table.adv{
     .adv-title {
         font-size:  2em;
         font-weight: bold;
-        text-align: left;
+        text-align: center;
         padding-left: 1em;
         text-transform: capitalize;
-        text-align: left;
     }
     tr:nth-child(even) {
         background-color: lightblue;
@@ -23,6 +22,9 @@ table.adv{
         white-space: nowrap;
         vertical-align: top;
         padding: 3px 0.35em;
+    }
+    td.notowned {
+        cursor: pointer;
     }
     td.adv-level {
         font-weight: bold;

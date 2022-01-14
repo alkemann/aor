@@ -1,4 +1,10 @@
 <br/>
 <div>
-    <aor-adv-card *ngFor="let category of advancesService.categories" [category]="category"></aor-adv-card>
+    <div><h4>Cash: {{cashAvailable}}</h4></div>
+    <aor-adv-card
+        *ngFor="let category of advancesService.categories"
+        [category]="category"
+        [buyCallback]="buyCallback"
+        [buyCheck]="buyCheck"
+    ></aor-adv-card>
 </div>

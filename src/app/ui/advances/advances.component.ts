@@ -8,8 +8,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdvancesComponent implements OnInit {
 
+  public cashAvailable: number = 100;
+
   constructor(public advancesService: AdvancesService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.buyingThisRound = new Set();
+  }
 
+  buyingThisRound: Set<string> = new Set();
+
+  public buyCheck(adv: string): boolean
+  {
+    return this.buyingThisRound.has(adv);
+  }
+
+  public buyCallback(adv: string): boolean
+  {
+
+    if (this.buyingThisRound.has(adv)) {
+      this.buyingThisRound.delete(adv);
+    } else {
+      this.buyingThisRound.add(adv);
+    }
+    return false;
+  }
 }
