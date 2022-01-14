@@ -9,8 +9,6 @@ export class Misery {
 
   private m: number = 0;
 
-  private round: number = 0;
-
   public get level(): number { return levels[this.m]; }
 
   public incByLevel(l: number = 1): void {

@@ -18,20 +18,4 @@ export class Game {
     return bid;
   }
 
-  public applyRound(): void {
-
-  }
-
-  public buyAdvance(adv: Advance): void {
-
-  }
-
-  public buyTokens(count: number): void {
-
-  }
-
-  public buyCard(): void {
-
-  }
-
 }
