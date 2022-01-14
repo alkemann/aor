@@ -12,24 +12,44 @@
     <h3>Turn {{RoundService.round}}</h3>
     <table id="spending" [cellPadding]="5" [cellSpacing]="5">
         <tr>
-            <th>Tokens to spend</th>
-            <td>&#9632; {{RoundService.exploreTokens}}</td>
-        </tr>
-        <tr>
             <th>Current Misary index</th>
             <td>{{PlayerService.player.misery.level}}m</td>
+        </tr>
+        <tr>
+            <th>Tokens to spend</th>
+            <td>&#9632; {{RoundService.exploreTokens}}</td>
         </tr>
         <tr>
             <th>Round cash</th>
             <td>${{PlayerService.player.$}}</td>
         </tr>
+        <tr *ngIf="PlayerService.player.owns('V')">
+            <th> + <button (click)="buyCard()">Buy Card?</button></th>
+            <td>${{spending.onCard}}</td>
+        </tr>
         <tr *ngFor="let a of RoundService.advances">
             <td class="tar"> + {{a.name}}</td>
             <td>${{a.cost}}</td>
         </tr>
-        <tr>
+        <tr *ngIf="spending.onAdvances != 0">
             <th> = On Advances:</th>
             <td>${{spending.onAdvances}}</td>
+        </tr>
+        <tr>
+            <td>
+                Cards : {{RoundService.hand}} costs ${{spending.onHand}}
+            </td>
+        </tr>
+        <tr>
+            <td class="buttons">
+                <button (click)="handSize(-1)">-</button> &nbsp;
+                <button (click)="handSize(1)">+</button> &nbsp;
+                <button (click)="toggleStabilization()">Pay?</button>
+            </td>
+        </tr>
+        <tr>
+            <th> + on Hand Stabilization</th>
+            <td>${{RoundService.payingStabiliztion ? spending.onHand : 0}}</td>
         </tr>
         <tr>
             <th>
@@ -68,7 +88,7 @@
                         <td>-{{miseryChange.fromCash}}m</td>
                     </tr>
                     <tr *ngIf="miseryChange.total != 0">
-                        <th> = Relief</th>
+                        <th> = Misary</th>
                         <td>{{miseryChange.total}}m</td>
                     </tr>
                     <tr>

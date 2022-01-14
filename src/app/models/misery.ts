@@ -1,8 +1,9 @@
 
 const levels = [
+  0,
   10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
   125, 150, 175, 200, 250, 300, 350, 400, 450, 500,
-  600, 700, 800, 900, 1000, -1
+  600, 700, 800, 900, 1000, 9999
 ];
 
 export class Misery {
@@ -17,7 +18,7 @@ export class Misery {
 
   public levelOf(new_value: number): number {
     for (let i = 0; i < levels.length; i++) {
-      if (levels[i] >= new_value) { //  || (levels[i] < new_value && new_value < levels[i + 1])
+      if (levels[i] >= new_value) {
         return i;
       }
     }
@@ -32,5 +33,18 @@ export class Misery {
   public miFromMoreLevels(increases: number): number {
     const step = this.m + increases;
     return levels[step] - this.level;
+  }
+
+  public failedStabilization(stabilizationCost: number): number {
+    const new_value = this.level + stabilizationCost;
+    for (let i = this.m; i < levels.length; i++) {
+      if (levels[i] === new_value) {
+        return i - this.m;
+      }
+      if (levels[i] < new_value && new_value < levels[i + 1]) {
+        return i - this.m + 1;
+      }
+    }
+    return 1;
   }
 }

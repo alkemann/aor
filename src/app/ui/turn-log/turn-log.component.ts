@@ -59,7 +59,22 @@ export class TurnLogComponent implements OnInit {
     this.RoundService.buyRelief(n);
     this.miseryChange = this.createMiseryChange();
     this.spending = this.createSpending();
+  }
 
+  public buyCard(): void {
+    this.RoundService.buyCard();
+    this.spending = this.createSpending();
+  }
+  public toggleStabilization(): void {
+    this.RoundService.payingStabiliztion = ! this.RoundService.payingStabiliztion;
+    this.spending = this.createSpending();
+    this.miseryChange = this.createMiseryChange();
+  }
+
+  public handSize(n: number): void {
+    this.RoundService.hand += n;
+    this.spending = this.createSpending();
+    this.miseryChange = this.createMiseryChange();
   }
 
   public abs(n:number): number {
@@ -68,7 +83,10 @@ export class TurnLogComponent implements OnInit {
 
   createMiseryChange(): MiseryChange {
     const misery = this.PlayerService.player.misery;
-    const increases = this.RoundService.mi;
+    let increases = this.RoundService.mi;
+    if (this.RoundService.payingStabiliztion === false) {
+      increases += misery.failedStabilization(this.RoundService.stabilizationCost);
+    }
     const fromIncreases = misery.miFromMoreLevels(increases);
     const fromAdvances = this.RoundService.reliefFromAdvances;
     const subtotal = fromIncreases - fromAdvances;
@@ -88,16 +106,20 @@ export class TurnLogComponent implements OnInit {
 
   createSpending(): Spending {
     const player = this.PlayerService.player;
+    const playerHasClass = player.owns("Z");
     const onAdvances: number = this.onAdvances ?? 0;
     const onTokens = this.RoundService.tokens;
     const onMisary = this.RoundService.relief;
-    const onHand = 0;
-    const onCard = 0;
-    const total = onAdvances + onTokens + onMisary + onHand + onCard;
+    const onHand = this.RoundService.stabilizationCost;
+    const onCard = this.RoundService.card ? 10 : 0;
+    let total = onAdvances + onTokens + onMisary + onCard;
+    if (this.RoundService.payingStabiliztion) {
+      total += onHand;
+    }
     const savings = player.$ - total;
-    const interest = savings; // player.owns("L")
+    const interest = player.owns("L") ? savings : 0;
     const earnings = 85; // from city count
-    const middleClass = 10; // player.owns("Z")
+    const middleClass = playerHasClass? 10 : 0;
     const nextTurn = savings + interest + earnings + middleClass;
     return {
       onAdvances,
