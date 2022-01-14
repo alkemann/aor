@@ -9,6 +9,9 @@ import { Player } from '../models/player';
 })
 export class RoundService {
 
+  private r: number = 1;
+  public get round(): number { return this.r; };
+
   private buyingThisRound: Set<string> = new Set();
 
   private _boughtTokens: number = 0;
@@ -68,6 +71,13 @@ export class RoundService {
     return false;
   }
 
+  public get relief(): number
+  {
+    let out:number = 0;
+    // this.buyingThisRound.forEach(k => out += this.advancesService.byKey(k).misery );
+    return out;
+  }
+
   public get advances(): Advance[]
   {
     let out: Advance[] = [];
@@ -83,6 +93,7 @@ export class RoundService {
 
   private startNextRound(tokens: number): void
   {
+    this.r++;
     this._tokens = 0;
     this._boughtTokens = tokens;
     this.buyingThisRound = new Set();

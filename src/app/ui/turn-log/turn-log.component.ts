@@ -27,16 +27,29 @@ export class TurnLogComponent implements OnInit {
   ) { }
 
   public spending: Spending;
+  private onAdvances ?: number;
 
   ngOnInit(): void {
-    const onAdvances = this.RoundService.advanceCost;
+    this.onAdvances = this.RoundService.advanceCost;
+    this.spending = this.createSpending();
+  }
+
+  public buyTokens(n:number): void
+  {
+    this.RoundService.buyTokens(n);
+    this.spending = this.createSpending();
+  }
+
+  createSpending(): Spending {
+
+    const onAdvances :number = this.onAdvances ?? 0;
     const onTokens = this.RoundService.tokens;
     const onMisary = 0;
     const onHand = 0;
     const onCard = 0;
     const total = onAdvances + onTokens + onMisary + onHand + onCard;
     const savings = this.PlayerService.player.$ - total;
-    this.spending = {
+    return {
       onAdvances,
       onTokens,
       onCard,
@@ -44,7 +57,7 @@ export class TurnLogComponent implements OnInit {
       onMisary,
       total,
       savings
-    }
+    };
   }
 
 }

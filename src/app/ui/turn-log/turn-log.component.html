@@ -9,7 +9,7 @@
 
 <br />
 <div>
-    <h3>This turn</h3>
+    <h3>Turn {{RoundService.round}}</h3>
     <table id="spending" [cellPadding]="5" [cellSpacing]="5">
         <tr>
             <th>Tokens to spend</th><td>&#9632; {{RoundService.exploreTokens}}</td>
@@ -18,27 +18,49 @@
             <th>Round cash</th><td>${{PlayerService.player.$}}</td>
         </tr>
         <tr *ngFor="let a of RoundService.advances">
-            <td class="tar">{{a.name}}</td><td>${{a.cost}}</td>
+            <td class="tar"> + {{a.name}}</td><td>${{a.cost}}</td>
         </tr>
         <tr>
-            <th>On Advances:</th><td>${{spending.onAdvances}}</td>
+            <th> = On Advances:</th><td>${{spending.onAdvances}}</td>
         </tr>
         <tr>
-            <th>Tokens</th><td>${{RoundService.tokens}}</td>
+
+            <th> + {{RoundService.tokens}} Tokens</th>
+            <td rowspan="2">${{RoundService.tokens}}</td>
         </tr>
         <tr>
-            <td colspan="2" class="buttons">
-                <button (click)="RoundService.buyTokens(-5)">--</button> &nbsp;
-                <button (click)="RoundService.buyTokens(-1)">-</button> &nbsp;
-                <button (click)="RoundService.buyTokens(1)">+</button> &nbsp;
-                <button (click)="RoundService.buyTokens(5)">++</button>
+            <td class="buttons">
+                <button (click)="buyTokens(-5)">--</button> &nbsp;
+                <button (click)="buyTokens(-1)">-</button> &nbsp;
+                <button (click)="buyTokens(1)">+</button> &nbsp;
+                <button (click)="buyTokens(5)">++</button>
             </td>
         </tr>
         <tr>
-            <th>Total:</th><td>${{spending.total}}</td>
+            <th> + Misary</th><td rowspan="2">${{spending.onMisary}}</td>
         </tr>
         <tr>
-            <th>Savings:</th><td>${{spending.savings}}</td>
+            <td class="buttons">
+                <button (click)="buyMR(-5)">--</button> &nbsp;
+                <button (click)="buyMR(-1)">-</button> &nbsp;
+                <button (click)="buyMR(1)">+</button> &nbsp;
+                <button (click)="buyMR(5)">++</button>
+            </td>
+        </tr>
+        <tr>
+            <th> = Total:</th><td>${{spending.total}}</td>
+        </tr>
+        <tr>
+            <td colspan="2"> &nbsp; </td>
+        </tr>
+        <tr>
+            <th>Started with</th><td>${{PlayerService.player.$}}</td>
+        </tr>
+        <tr>
+            <th> - spending</th><td>${{spending.total}}</td>
+        </tr>
+        <tr>
+            <th> = Savings:</th><td>${{spending.savings}}</td>
         </tr>
     </table>
 </div>
