@@ -12,6 +12,11 @@ export class Misery {
 
   public get level(): number { return levels[this.m]; }
 
+  public incByValue(v: number): void {
+    const l = this.changeToSteps(v);
+    this.m += l;
+  }
+
   public incByLevel(l: number = 1): void {
     this.m += l;
   }

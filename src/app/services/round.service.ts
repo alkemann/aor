@@ -1,3 +1,4 @@
+import { GameService } from 'src/app/services/game.service';
 import { PlayerService } from './player.service';
 import { AdvancesService } from 'src/app/services/advances.service';
 import { Injectable } from '@angular/core';
@@ -41,6 +42,7 @@ export class RoundService {
   private buyingThisRound: Set<string> = new Set();
   private _boughtCard: boolean = false;
   private _relief: number = 0;
+  private _startCash: number = 0;
   private _boughtTokens: number = 0;
   public get exploreTokens(): number { return this._boughtTokens; };
   private _tokens: number = 0;
@@ -48,7 +50,8 @@ export class RoundService {
 
   constructor(
     private AdvancesService: AdvancesService,
-    private PlayerService: PlayerService
+    private PlayerService: PlayerService,
+    private GameService: GameService,
   ) { }
 
   public get advanceCost(): number {
@@ -152,21 +155,30 @@ export class RoundService {
     return out;
   }
 
-  private startNextRound(tokens: number): void {
+  private startNextRound(tokens: number, cash: number): void {
     this.r++;
     this._tokens = 0;
     this._relief = 0;
     this.payingStabiliztion = false;
     this._boughtCard = false;
     this._boughtTokens = tokens;
+    this._startCash = cash;
     this.buyingThisRound = new Set();
   }
 
   public apply(): void {
     const player = this.PlayerService.player;
     this.buyingThisRound.forEach(k => player.add(k));
-    player.spend = this.advanceCost;
-    player.earn = 100;
+    const spending = this.spending;
+    player.$ = spending.nextTurn;
+    player.misery.incByLevel(this.miseryChange.change);
+    this.GameService.round = {
+      i: this.r,
+      total: this._startCash,
+      tokens: spending.onTokens,
+      cash: spending.nextTurn
+    };
+    this.startNextRound(spending.onTokens, spending.nextTurn);
   }
 
   public get miseryChange(): MiseryChange {
@@ -205,7 +217,7 @@ export class RoundService {
     }
     const savings = player.$ - subtotal;
     const interest = player.owns("L") ? savings : 0;
-    const earnings = player.cities * 5;
+    const earnings = 15 + player.cities * 5;
     const middleClass = playerHasClass? 10 : 0;
     const afterIncome = savings + interest + earnings + middleClass;
     const onTokens = this.tokens;

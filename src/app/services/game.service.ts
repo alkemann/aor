@@ -4,12 +4,21 @@ import { Nation } from '../enums/nation';
 import { Bid } from '../interfaces/bid';
 import { Game } from '../models/game';
 
+type Round = {
+  i: number,
+  total: number,
+  tokens: number,
+  cash:number
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
 
   private game: Game;
+
+  public rounds: Round[] = [];
 
   constructor(private playerService: PlayerService) {
     this.game = new Game();
@@ -29,7 +38,7 @@ export class GameService {
     this.addBid('Eirik', 5, Nation.Hamburg);
     this.addBid('Erlend', 0, Nation.Genova);
 
-    // this.playerService.player.earn = 140;
+    // this.playerService.player.$ = 140;
     // this.playerService.player.toggle("I");
     // this.playerService.player.toggle("J");
     // this.playerService.player.toggle("K");
@@ -44,4 +53,8 @@ export class GameService {
   }
 
   public get bids(): Bid[] { return this.game.bids; }
+
+  public set round(r: Round) {
+    this.rounds.push(r)
+  }
 }

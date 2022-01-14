@@ -153,6 +153,12 @@
             <th> = Next turn cash</th>
             <td>${{spending.nextTurn}}</td>
         </tr>
+
+        <tr>
+            <td colspan="2">
+                <button (click)="RoundService.apply()">NEXT TURN</button> (no undo!)
+            </td>
+        </tr>
     </table>
 </div>
 
@@ -164,26 +170,10 @@
         <th>Tokens</th>
         <th>Cash</th>
     </tr>
-    <tr>
-        <td>&nbsp;</td><td>1</td><td>&nbsp;</td><td>&nbsp;</td>
-    </tr>
-    <tr>
-        <td>&nbsp;</td><td>2</td><td>&nbsp;</td><td>&nbsp;</td>
-    </tr>
-    <tr>
-        <td>&nbsp;</td><td>3</td><td>&nbsp;</td><td>&nbsp;</td>
-    </tr>
-    <tr>
-        <td>&nbsp;</td><td>4</td><td>&nbsp;</td><td>&nbsp;</td>
-    </tr>
-    <tr>
-        <td>&nbsp;</td><td>5</td><td>&nbsp;</td><td>&nbsp;</td>
-    </tr>
-    <tr>
-        <td>&nbsp;</td><td>6</td><td>&nbsp;</td><td>&nbsp;</td>
+    <tr *ngFor="let round of GameService.rounds">
+        <td>{{round.total}}</td><td>{{round.i}}</td><td>{{round.tokens}}</td><td>{{round.cash}}</td>
     </tr>
 </table>
-
 
 <!-- TODO Cathedral usage? -->
 </div>

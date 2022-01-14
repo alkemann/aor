@@ -20,11 +20,9 @@ export class Player {
   public get name(): string { return this._name; }
   public get $(): number { return this._gold; }
 
-  set spend($: number) {
-    this._gold -= $;
-  }
-  set earn($: number) {
-    this._gold += $;
+  set $($: number) {
+    if ($ < 0) throw new Error("Money must be positive!");
+    this._gold = $;
   }
 
   public get maxMRsteps(): number {
