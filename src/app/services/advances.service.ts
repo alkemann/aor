@@ -53,9 +53,9 @@ export class AdvancesService {
 
   byKey(key: string): Advance
   {
-    for (const key in this.data) {
-      if (Object.prototype.hasOwnProperty.call(this.data, key)) {
-        const element = this.data[key];
+    for (const i in this.data) {
+      if (Object.prototype.hasOwnProperty.call(this.data, i)) {
+        const element = this.data[i];
         if (element && element?.key == key) {
           return element;
         }

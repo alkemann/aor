@@ -5,15 +5,15 @@
                 {{symbol(category)}} {{category}} ({{total}})
             </th>
             <th class="adv-research" colspan="1">
-                <span *ngIf="researchable && playerHasIR">
+                <span *ngIf="advances[0].researchable && roundService.playerHasIR">
                     10 Cr Research [X]
                 </span>
                 &nbsp;
             </th>
         </tr>
-        <tr *ngFor="let adv of advances" (click)="buyCallback(adv.key)">
+        <tr *ngFor="let adv of advances" (click)="roundService.buyAdvanceToggle(adv.key)">
 
-            <ng-template [ngIf]="owns(adv.key)" [ngIfElse]="notOwned">
+            <ng-template [ngIf]="playerService.player.owns(adv.key)" [ngIfElse]="notOwned">
                 <td class="adv-level">{{adv.key}} - {{adv.name}}</td>
                 <td>&nbsp;</td>
                 <td class="adv-price">OWN ({{adv.cost}})</td>
@@ -24,10 +24,9 @@
             </ng-template>
 
             <ng-template #notOwned>
-
                 <td class="adv-level notowned">{{adv.key}} - {{adv.name}}</td>
-                <td><span *ngIf="buyCheck(adv.key); else blank">&check;</span><ng-template #blank>&nbsp;</ng-template></td>
-                <td class="adv-price notowned">${{cost(adv)}} ({{adv.cost}})</td>
+                <td><span *ngIf="roundService.buyCheck(adv.key); else blank">&check;</span><ng-template #blank>&nbsp;</ng-template></td>
+                <td class="adv-price notowned">${{roundService.cost(adv)}} ({{adv.cost}})</td>
                 <td class="adv-cred notowned">{{adv.credit}} CR</td>
                 <td class="adv-mr notowned">{{adv.relief}} MR</td>
                 <td class="adv-desc notowned">{{adv.description}}</td>

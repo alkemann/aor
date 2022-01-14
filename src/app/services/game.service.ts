@@ -35,7 +35,7 @@ export class GameService {
     this.playerService.player.toggle("J");
     this.playerService.player.toggle("K");
     this.playerService.player.toggle("L");
-    this.playerService.player.toggle("X");
+    // this.playerService.player.toggle("X");
   }
 
   public addBid(name: string, $: number, nation: Nation): void
