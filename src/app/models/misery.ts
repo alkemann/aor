@@ -15,24 +15,22 @@ export class Misery {
     this.m += l;
   }
 
-  public inc(amount: number): void {
-    this.round += amount;
-  }
-
-  public dec(amount: number): void {
-    this.round -= amount;
-  }
-
-  public apply(): number {
-    const current_level = this.level;
-    const new_value = current_level - this.round;
+  public levelOf(new_value: number): number {
     for (let i = 0; i < levels.length; i++) {
-      if (levels[i] === new_value || (levels[i] < new_value && new_value < levels[i + 1])) {
-        this.m = i;
-        break;
+      if (levels[i] >= new_value) { //  || (levels[i] < new_value && new_value < levels[i + 1])
+        return i;
       }
     }
-    this.round = 0;
-    return this.level;
+    return 0;
+  }
+
+  public changeToSteps(valueChange: number): number {
+    const newValue = Math.max(0, this.level + valueChange);
+    return this.levelOf(newValue) - this.m;
+  }
+
+  public miFromMoreLevels(increases: number): number {
+    const step = this.m + increases;
+    return levels[step] - this.level;
   }
 }

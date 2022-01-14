@@ -18,7 +18,7 @@
                 <td>&nbsp;</td>
                 <td class="adv-price">OWN ({{adv.cost}})</td>
                 <td class="adv-cred">{{adv.credit}} CR</td>
-                <td class="adv-mr">{{adv.relief}} MR</td>
+                <td class="adv-mr">{{adv.relief}} MR <span *ngIf="adv.misery">1 MI</span></td>
                 <td class="adv-desc">{{adv.description}}</td>
                 <td class="adv-preq">Prerequisite: {{adv.prerequisites}}</td>
             </ng-template>
@@ -28,7 +28,7 @@
                 <td><span *ngIf="roundService.buyCheck(adv.key); else blank">&check;</span><ng-template #blank>&nbsp;</ng-template></td>
                 <td class="adv-price notowned">${{roundService.cost(adv)}} ({{adv.points}})</td>
                 <td class="adv-cred notowned">{{adv.credit}} CR</td>
-                <td class="adv-mr notowned">{{adv.relief}} MR</td>
+                <td class="adv-mr notowned">{{adv.relief}} MR <span *ngIf="adv.misery">1 MI</span></td>
                 <td class="adv-desc notowned">{{adv.description}}</td>
                 <td class="adv-preq notowned">Prerequisite: {{adv.prerequisites}}</td>
             </ng-template>

@@ -14,6 +14,8 @@ export class RoundService {
 
   private buyingThisRound: Set<string> = new Set();
 
+  private _relief: number = 0;
+
   private _boughtTokens: number = 0;
   public get exploreTokens(): number { return this._boughtTokens; };
   private _tokens: number = 0;
@@ -47,6 +49,15 @@ export class RoundService {
     return this.playerService.player.owns("X") || this.buyCheck("X");
   }
 
+  public buyRelief(n: number) {
+    this._relief += n;
+    this._relief = Math.max(0, this._relief);
+  }
+
+  public get relief(): number {
+    return this._relief;
+  }
+
   public buyTokens(n: number): void {
     const want = this._tokens + n;
     this._tokens = Math.min(36, Math.max(0, want));
@@ -65,9 +76,18 @@ export class RoundService {
     return false;
   }
 
-  public get relief(): number {
+  public get reliefFromAdvances(): number {
     let out: number = 0;
-    // this.buyingThisRound.forEach(k => out += this.advancesService.byKey(k).misery );
+    this.buyingThisRound.forEach(k => {
+      const a: Advance = this.advancesService.byKey(k);
+      out += a.relief
+    });
+    return out;
+  }
+
+  public get mi(): number {
+    let out: number = 0;
+    this.buyingThisRound.forEach(k => out += this.advancesService.byKey(k).misery ? 1 : 0);
     return out;
   }
 
@@ -86,6 +106,7 @@ export class RoundService {
   private startNextRound(tokens: number): void {
     this.r++;
     this._tokens = 0;
+    this._relief = 0;
     this._boughtTokens = tokens;
     this.buyingThisRound = new Set();
   }

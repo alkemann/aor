@@ -26,6 +26,10 @@ export class Player {
     this._gold += $;
   }
 
+  public get maxMRsteps(): number {
+    return 1;
+  }
+
   public owns(letter: string): boolean {
     return this.purchased.has(letter);
   }
