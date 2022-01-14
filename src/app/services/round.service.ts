@@ -2,7 +2,31 @@ import { PlayerService } from './player.service';
 import { AdvancesService } from 'src/app/services/advances.service';
 import { Injectable } from '@angular/core';
 import { Advance } from '../interfaces/advance';
-import { Player } from '../models/player';
+
+export type Spending = {
+  onAdvances: number,
+  onCard: number,
+  onHand: number,
+  onMisary: number,
+  subtotal: number,
+  savings: number,
+  interest: number
+  earnings: number,
+  middleClass: number,
+  afterIncome: number,
+  onTokens: number,
+  nextTurn: number,
+}
+
+export type MiseryChange = {
+  increases: number,
+  fromIncreases: number,
+  fromAdvances: number,
+  subtotal: number,
+  fromCash: number,
+  total: number,
+  change: number
+}
 
 @Injectable({
   providedIn: 'root'
@@ -144,4 +168,62 @@ export class RoundService {
     player.spend = this.advanceCost;
     player.earn = 100;
   }
+
+  public get miseryChange(): MiseryChange {
+    const misery = this.PlayerService.player.misery;
+    let increases = this.mi;
+    if (this.payingStabiliztion === false) {
+      increases += misery.failedStabilization(this.stabilizationCost);
+    }
+    const fromIncreases = misery.miFromMoreLevels(increases);
+    const fromAdvances = this.reliefFromAdvances;
+    const subtotal = fromIncreases - fromAdvances;
+    const fromCash = this.relief;
+    const total = subtotal - fromCash;
+    const change = misery.changeToSteps(total);
+    return {
+      increases,
+      fromIncreases,
+      fromAdvances,
+      subtotal,
+      fromCash,
+      total,
+      change
+    }
+  }
+
+  public get spending(): Spending {
+    const player = this.PlayerService.player;
+    const playerHasClass = player.owns("Z");
+    const onAdvances: number = this.advanceCost ?? 0;
+    const onMisary = this.relief;
+    const onHand = this.stabilizationCost;
+    const onCard = this.card ? 10 : 0;
+    let subtotal = onAdvances + onMisary + onCard;
+    if (this.payingStabiliztion) {
+      subtotal += onHand;
+    }
+    const savings = player.$ - subtotal;
+    const interest = player.owns("L") ? savings : 0;
+    const earnings = player.cities * 5;
+    const middleClass = playerHasClass? 10 : 0;
+    const afterIncome = savings + interest + earnings + middleClass;
+    const onTokens = this.tokens;
+    const nextTurn = afterIncome - onTokens;
+    return {
+      onAdvances,
+      onCard,
+      onHand,
+      onMisary,
+      subtotal,
+      savings,
+      interest,
+      earnings,
+      middleClass,
+      afterIncome,
+      onTokens,
+      nextTurn
+    };
+  }
+
 }
