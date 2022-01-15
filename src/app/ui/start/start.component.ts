@@ -20,4 +20,8 @@ export class StartComponent implements OnInit {
   public after(): void {
     this.phase += 1;
   }
+
+  public start(): void {
+    this.phase = 0;
+  }
 }

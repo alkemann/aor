@@ -16,6 +16,9 @@ export class Game {
 
   public get rules(): Rules { return this._rules; }
 
+  public startGame(): void {
+    this.started = true;
+  }
 
   public addBid(name: string, $: number, nation: Nation): Bid {
     const bid = { name, $, nation };

@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Advance } from '../interfaces/advance';
 
 export type Spending = {
+  startedWith: number,
   onAdvances: number,
   onCard: number,
   onHand: number,
@@ -47,6 +48,7 @@ export class RoundService {
   public get exploreTokens(): number { return this._boughtTokens; };
   private _tokens: number = 0;
   public get tokens(): number { return this._tokens; }
+  public get writtenMoney(): number { return this._startCash; }
 
   constructor(
     private AdvancesService: AdvancesService,
@@ -155,7 +157,7 @@ export class RoundService {
     return out;
   }
 
-  private startNextRound(tokens: number, cash: number): void {
+  public startNextRound(tokens: number, cash: number): void {
     this.r++;
     this._tokens = 0;
     this._relief = 0;
@@ -217,12 +219,13 @@ export class RoundService {
     }
     const savings = player.$ - subtotal;
     const interest = player.owns("L") ? savings : 0;
-    const earnings = 15 + player.cities * 5;
+    const earnings = this.GameService.earnings(player.cities);
     const middleClass = playerHasClass? 10 : 0;
     const afterIncome = savings + interest + earnings + middleClass;
     const onTokens = this.tokens;
     const nextTurn = afterIncome - onTokens;
     return {
+      startedWith: this._startCash,
       onAdvances,
       onCard,
       onHand,

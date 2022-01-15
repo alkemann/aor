@@ -1,4 +1,4 @@
-<h3>Name your players</h3>
+<h3>Name the board pieces</h3>
 <form>
   <fieldset>
     <legend>You</legend>
@@ -13,7 +13,6 @@
     <input *ngIf="nrp >= 4" [(ngModel)]="playerNames[2]"  type="text" name="names[]" placeholder="player 4"><br>
     <input *ngIf="nrp >= 5" [(ngModel)]="playerNames[3]"  type="text" name="names[]" placeholder="player 5"><br>
     <input *ngIf="nrp == 6" [(ngModel)]="playerNames[4]"  type="text" name="names[]" placeholder="player 6"><br>
-
   </fieldset>
 </form>
 <br>

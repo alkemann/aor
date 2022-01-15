@@ -16,6 +16,7 @@ import { CreateComponent } from './ui/start/create/create.component';
 import { NamesComponent } from './ui/start/names/names.component';
 import { BidComponent } from './ui/start/bid/bid.component';
 import { DevideComponent } from './ui/start/devide/devide.component';
+import { TokensComponent } from './ui/start/tokens/tokens.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { DevideComponent } from './ui/start/devide/devide.component';
     NamesComponent,
     BidComponent,
     DevideComponent,
+    TokensComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,25 +1,23 @@
 <h3>Who takes what?</h3>
 <p>Note down the winning bids</p>
-<form (submit)="submit()">
+<form #f="ngForm" (submit)="submit(f)">
   <fieldset>
     <legend>Nations</legend>
     <div class="n">
       <label>You
-        <select [(ngModel)]="myNation" name="myNation" class="nation-select">
+        <select ngModel name="myNation" class="nation-select">
           <option *ngFor="let nation of availableNations" value="{{nation}}" >{{nation}}</option>
         </select>
-
       </label>
     </div>
 
-    <div class="n" *ngFor="let item of players | keyvalue">
-
-      <label>{{item.value}}
-        <select [name]="'player-nation-'+item.key" class="nation-select">
+    <div class="n" *ngFor="let key of playerKeys">
+      <label>{{playerNames[key]}}
+        <select ngModel [name]="'player-nation-'+key" class="nation-select">
           <option *ngFor="let nation of availableNations" value="{{nation}}" >{{nation}}</option>
         </select>
       </label> &nbsp;
-      <input type="number" [name]="'player-bid-'+item.key" value="0" placeholder="Their bid?">
+      <input ngModel type="number" [name]="'player-bid-'+key" placeholder="Their bid?">
     </div>
 
     <input type="submit" value="Apply">

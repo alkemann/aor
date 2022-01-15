@@ -20,8 +20,8 @@
             <td>&#9632; {{RoundService.exploreTokens}}</td>
         </tr>
         <tr>
-            <th>Written cash</th>
-            <td>${{PlayerService.player.$}}</td>
+            <th>Written money</th>
+            <td>${{spending.startedWith}}</td>
         </tr>
         <tr *ngIf="PlayerService.player.owns('V')">
             <th> + <button (click)="buyCard()">Buy Card?</button></th>

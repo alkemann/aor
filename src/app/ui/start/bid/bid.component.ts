@@ -10,15 +10,13 @@ export class BidComponent implements OnInit {
 
   @Output() done: EventEmitter<any> = new EventEmitter<any>();
 
-  public amount:number;
-
   constructor(private PlayerService: PlayerService) { }
 
   ngOnInit(): void {
   }
 
-  public makeBid(): void {
-    this.PlayerService.player.bid = this.amount;
+  public makeBid(amount: string): void {
+    this.PlayerService.player.payForBid(parseInt(amount));
     this.done.emit();
   }
 }

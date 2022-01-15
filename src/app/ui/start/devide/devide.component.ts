@@ -3,6 +3,7 @@ import { PlayerService } from './../../../services/player.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Player } from 'src/app/models/player';
 import { Nation } from 'src/app/enums/nation';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'ui-start-devide',
@@ -18,15 +19,20 @@ export class DevideComponent implements OnInit {
   public myNation: Nation;
   public otherNations: Nation[];
 
+  private pk: number[] = [];
+  private pn: string[] = [];
+
   constructor(
     private PlayerService: PlayerService,
     private GameService: GameService
   ) { }
 
-  public get players(): Player[] { return this.PlayerService.others; }
+  public get playerKeys(): any { return this.pk; }
+  public get playerNames(): string[] { return this.pn; }
 
   ngOnInit(): void {
-
+    this.pk = Array.from(Array(this.GameService.numberOfPlayers-1).keys())
+    this.pn = this.PlayerService.others.map(p=>p.name);
     let an: string[] = [
       'Venice',
       'Genoa',
@@ -39,8 +45,15 @@ export class DevideComponent implements OnInit {
     this.availableNations = an;
   }
 
-  public submit(): void {
-    // this.done.emit();
+  public submit(form:NgForm): void {
+    this.PlayerService.player.nation = form.value.myNation;
+    const players = this.PlayerService.others;
+    for (let i = 0; i < players.length; i++) {
+      const player = players[i];
+      player.nation = form.value['player-nation-' + i];
+      player.bid = form.value['player-bid-' + i];
+    }
+    this.done.emit();
   }
 
 }

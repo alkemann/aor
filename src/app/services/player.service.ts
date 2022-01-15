@@ -15,10 +15,7 @@ export class PlayerService {
     this.player = new Player(name);
   }
 
-  newOtherPlayer(name: string | null): void {
-    if (name === null) {
-      name = "other " + (this.others.length + 1);
-    }
+  newOtherPlayer(name: string): void {
     this.others.push(new Player(name));
   }
 

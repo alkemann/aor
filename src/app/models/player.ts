@@ -1,5 +1,4 @@
 import { Misery } from './misery';
-import { Advance } from './../interfaces/advance';
 import { Nation } from '../enums/nation';
 
 
@@ -27,6 +26,16 @@ export class Player {
   set $($: number) {
     if ($ < 0) throw new Error("Money must be positive!");
     this._gold = $;
+  }
+
+  public set spend($: number) {
+    this._gold -= $;
+    this._gold = Math.max(0, this._gold);
+  }
+
+  public payForBid($:number) {
+    this.bid = $;
+    this.spend = $;
   }
 
   public get maxMRsteps(): number {

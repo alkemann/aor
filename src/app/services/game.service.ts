@@ -1,6 +1,5 @@
 import { PlayerService } from './player.service';
 import { Injectable } from '@angular/core';
-import { Nation } from '../enums/nation';
 import { Game } from '../models/game';
 import { Rules } from '../interfaces/rules';
 
@@ -31,25 +30,10 @@ export class GameService {
       sameTurnResearch: setupForm.sameTurnResearch
     }
     this._game = new Game(players, rules);
-    console.log("Game setup!");
   }
 
   public start(): void {
-    this.playerService.newPlayer("Alexander");
-    this.playerService.newOtherPlayer("Steffen");
-    this.playerService.newOtherPlayer("Erlend");
-    this.playerService.newOtherPlayer("Eirik");
-    this.playerService.newOtherPlayer("Tord");
-    this.playerService.newOtherPlayer("Daniel");
-
-    // this.playerService.player.$ = 140;
-    // this.playerService.player.toggle("I");
-    // this.playerService.player.toggle("J");
-    // this.playerService.player.toggle("K");
-    // this.playerService.player.toggle("L");
-    // this.playerService.player.toggle("V");
-    // this.playerService.player.toggle("Z");
-    // this.playerService.player.toggle("X");
+    this._game.startGame();
   }
 
   public get numberOfPlayers(): number { return this._game.playerCount; }

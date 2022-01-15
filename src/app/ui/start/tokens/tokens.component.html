@@ -1,0 +1,11 @@
+<h2>How many tokens in first round?</h2>
+<p>You have ${{PlayerService.player.$}} left</p>
+<form (submit)="buyTokens(amount.value)">
+  <fieldset>
+    <legend>How much do you want it?</legend>
+    <label>
+      <input #amount type="number">
+    </label>
+    <input type="submit" value="Buy">
+  </fieldset>
+  </form>
