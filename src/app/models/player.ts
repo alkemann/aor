@@ -1,5 +1,6 @@
 import { Misery } from './misery';
 import { Advance } from './../interfaces/advance';
+import { Nation } from '../enums/nation';
 
 
 export class Player {
@@ -9,6 +10,9 @@ export class Player {
   public misery: Misery;
   public cathedral: boolean = false;
   public cities: number = 0;
+
+  public bid: number;
+  public nation: Nation;
 
   constructor(name: string) {
     this._name = name;

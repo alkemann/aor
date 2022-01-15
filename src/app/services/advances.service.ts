@@ -1,7 +1,6 @@
+import { ADVANCES } from './../data/advances';
 import { Injectable } from '@angular/core';
 import { Advance } from '../interfaces/advance';
-import jsondata from '../data/advances.json';
-
 
 interface AdvanceList {
   [key: string]: string;
@@ -18,7 +17,7 @@ export class AdvancesService {
   private data: Advance[];
 
   constructor() {
-    this.data = jsondata;
+    this.data = ADVANCES;
   }
 
   public allByCategory(category: string): Advance[] {

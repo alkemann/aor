@@ -1,0 +1,31 @@
+<h3>Setup new Game</h3>
+<form>
+<fieldset>
+  <legend>Players</legend>
+  <label>
+    <input type="radio"  [(ngModel)]="setup.count" name="playerCount" id="players-3" value="3" />
+    <span>3 players</span>
+  </label> &nbsp;
+  <label>
+    <input type="radio"  [(ngModel)]="setup.count" name="playerCount" id="players-3" value="4" />
+    <span>4 players</span>
+  </label> &nbsp;
+  <label>
+    <input type="radio"  [(ngModel)]="setup.count" name="playerCount" id="players-3" value="5" />
+    <span>5 players</span>
+  </label> &nbsp;
+  <label>
+    <input type="radio"  [(ngModel)]="setup.count" name="playerCount" id="players-3" value="6" />
+    <span>6 players</span>
+  </label>
+</fieldset>
+<fieldset>
+  <legend>Rules</legend>
+  <label>
+    <input type="checkbox" [(ngModel)]="setup.sameTurnResearch" name="sameTurnResearch" value="yes" />
+    Institional Research provides credit same turn. <br />
+  </label>
+</fieldset>
+<br>
+<button class="btn btn-default" (click)="submit()">Create Game</button>
+</form>

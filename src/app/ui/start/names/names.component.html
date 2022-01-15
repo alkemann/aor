@@ -1,0 +1,21 @@
+<h3>Name your players</h3>
+<form>
+  <fieldset>
+    <legend>You</legend>
+    <label for="my-name">
+      <input [(ngModel)]="myName" type="text" name="myName" id="my-name">
+    </label>
+  </fieldset>
+  <fieldset>
+    <legend>Name The Enemy</legend>
+    <input [(ngModel)]="playerNames[0]"  type="text" name="names[]" placeholder="player 2"><br>
+    <input [(ngModel)]="playerNames[1]"  type="text" name="names[]" placeholder="player 3"><br>
+    <input *ngIf="nrp >= 4" [(ngModel)]="playerNames[2]"  type="text" name="names[]" placeholder="player 4"><br>
+    <input *ngIf="nrp >= 5" [(ngModel)]="playerNames[3]"  type="text" name="names[]" placeholder="player 5"><br>
+    <input *ngIf="nrp == 6" [(ngModel)]="playerNames[4]"  type="text" name="names[]" placeholder="player 6"><br>
+
+  </fieldset>
+</form>
+<br>
+<button class="btn btn-default" (click)="submit()">Create Game</button>
+

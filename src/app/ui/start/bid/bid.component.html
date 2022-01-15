@@ -1,0 +1,10 @@
+<h2>And here you bid</h2>
+<form (submit)="makeBid()">
+<fieldset>
+  <legend>How much do you want it?</legend>
+  <label>
+    <input [(ngModel)]="amount" type="text" name="bidAmount" id="bidAmount">
+  </label>
+  <input type="submit" value="Bid">
+</fieldset>
+</form>

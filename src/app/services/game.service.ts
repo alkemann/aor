@@ -1,8 +1,8 @@
 import { PlayerService } from './player.service';
 import { Injectable } from '@angular/core';
 import { Nation } from '../enums/nation';
-import { Bid } from '../interfaces/bid';
 import { Game } from '../models/game';
+import { Rules } from '../interfaces/rules';
 
 type Round = {
   i: number,
@@ -16,12 +16,22 @@ type Round = {
 })
 export class GameService {
 
-  private game: Game;
+  private _game: Game;
+  public get game(): boolean { return this._game instanceof Game && this._game.started; }
 
   public rounds: Round[] = [];
 
   constructor(private playerService: PlayerService) {
-    this.game = new Game();
+  }
+
+  public createGame(setupForm:any): any
+  {
+    const players: number = parseInt(setupForm.count);
+    const rules: Rules = {
+      sameTurnResearch: setupForm.sameTurnResearch
+    }
+    this._game = new Game(players, rules);
+    console.log("Game setup!");
   }
 
   public start(): void {
@@ -31,12 +41,6 @@ export class GameService {
     this.playerService.newOtherPlayer("Eirik");
     this.playerService.newOtherPlayer("Tord");
     this.playerService.newOtherPlayer("Daniel");
-    this.addBid('Alexander', 4, Nation.Barcelona);
-    this.addBid('Steffen', 10, Nation.Paris);
-    this.addBid('Daniel', 5, Nation.London);
-    this.addBid('Tord', 5, Nation.Venice);
-    this.addBid('Eirik', 5, Nation.Hamburg);
-    this.addBid('Erlend', 0, Nation.Genova);
 
     // this.playerService.player.$ = 140;
     // this.playerService.player.toggle("I");
@@ -48,11 +52,14 @@ export class GameService {
     // this.playerService.player.toggle("X");
   }
 
-  public addBid(name: string, $: number, nation: Nation): void {
-    this.game.addBid(name, $, nation);
+  public get numberOfPlayers(): number { return this._game.playerCount; }
+
+  public earnings(cities: number): number {
+    const pl = this.numberOfPlayers;
+    return 15 + (cities * pl);
   }
 
-  public get bids(): Bid[] { return this.game.bids; }
+  public get bids(): any[] { return []; }
 
   public set round(r: Round) {
     this.rounds.push(r)

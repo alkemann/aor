@@ -1,3 +1,4 @@
+import { StartPhases } from './../../enums/start-phases';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StartComponent implements OnInit {
 
-  constructor() { }
+  public phase: StartPhases;
+
+  constructor() {
+    this.phase = StartPhases.CREATE;
+  }
 
   ngOnInit(): void {
   }
 
+  public after(): void {
+    this.phase += 1;
+  }
 }

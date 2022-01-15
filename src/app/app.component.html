@@ -5,10 +5,10 @@
 <nav>
   <ul>
     <li><a routerLink="/start" routerLinkActive="active">start</a></li>
-    <li><a routerLink="/turn" routerLinkActive="active">turn</a></li>
-    <li><a routerLink="/advances" routerLinkActive="active">advances</a></li>
-    <li><a routerLink="/players" routerLinkActive="active">players</a></li>
-    <li><a routerLink="/end" routerLinkActive="active">end</a></li>
+    <li *ngIf="GameService.game"><a routerLink="/turn" routerLinkActive="active">turn</a></li>
+    <li *ngIf="GameService.game"><a routerLink="/advances" routerLinkActive="active">advances</a></li>
+    <li *ngIf="GameService.game"><a routerLink="/players" routerLinkActive="active">players</a></li>
+    <li *ngIf="GameService.game"><a routerLink="/end" routerLinkActive="active">end</a></li>
   </ul>
 </nav>
 
