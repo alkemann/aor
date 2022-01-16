@@ -10,7 +10,7 @@ export class Player {
   public cathedral: boolean = false;
   public cities: number = 0;
 
-  public bid: number;
+  public bid: number = 0;
   public nation: Nation;
 
   constructor(name: string) {

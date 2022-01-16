@@ -70,6 +70,7 @@ export class GameService {
     this.PlayerService.others.forEach(p => bids.push({
       name: p.name, $: p.bid, nation: p.nation
     }));
+    bids.sort( (a,b) => a.$ < b.$ ? 1 : -1 );
     return bids;
   }
 

@@ -41,15 +41,15 @@ export class StartComponent implements OnInit {
     this.PlayerService.newOtherPlayer("Pål Antonsen");
 
     // bid
-    this.PlayerService.player.payForBid(3);
+    this.PlayerService.player.payForBid(4);
 
     // devide
     this.PlayerService.player.nation = Nation.Venice;
     const players = this.PlayerService.others;
     players[0].nation = Nation.Barcelona;
-    players[0].bid = 5;
+    players[0].bid = 3;
     players[1].nation = Nation.Genova;
-    players[1].bid = 2;
+    players[1].bid = 5;
     players[2].nation = Nation.Paris;
     players[2].bid = 1;
 

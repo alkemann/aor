@@ -58,6 +58,7 @@ export class TurnLogComponent implements OnInit {
 
   public handSize(n: number): void {
     this.RoundService.hand += n;
+    this.RoundService.hand = Math.max(0, this.RoundService.hand);
     this.spending = this.RoundService.spending;
     this.miseryChange = this.RoundService.miseryChange;
   }

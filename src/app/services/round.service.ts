@@ -157,9 +157,10 @@ export class RoundService {
 
   public startNextRound(tokens: number, cash: number): void {
     this.r++;
+    this.hand++;
     this._tokens = 0;
     this._relief = 0;
-    this.payingStabiliztion = false;
+    this.payingStabiliztion = true;
     this._boughtCard = false;
     this._boughtTokens = tokens;
     this._startCash = cash;
