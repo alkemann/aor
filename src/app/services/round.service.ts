@@ -1,4 +1,3 @@
-import { GameService } from 'src/app/services/game.service';
 import { PlayerService } from './player.service';
 import { AdvancesService } from 'src/app/services/advances.service';
 import { Injectable } from '@angular/core';
@@ -53,7 +52,6 @@ export class RoundService {
   constructor(
     private AdvancesService: AdvancesService,
     private PlayerService: PlayerService,
-    private GameService: GameService,
   ) { }
 
   public get advanceCost(): number {
@@ -174,12 +172,6 @@ export class RoundService {
     const spending = this.spending;
     player.$ = spending.nextTurn;
     player.misery.incByLevel(this.miseryChange.change);
-    this.GameService.round = {
-      i: this.r,
-      total: this._startCash,
-      tokens: spending.onTokens,
-      cash: spending.nextTurn
-    };
     this.startNextRound(spending.onTokens, spending.nextTurn);
   }
 
@@ -206,6 +198,15 @@ export class RoundService {
     }
   }
 
+  private get numberOfPlayers(): number {
+    return this.PlayerService.others.length + 1;
+  }
+
+  private earnings(cities: number): number {
+    const pl = this.numberOfPlayers;
+    return 15 + (cities * pl);
+  }
+
   public get spending(): Spending {
     const player = this.PlayerService.player;
     const playerHasClass = player.owns("Z");
@@ -219,7 +220,7 @@ export class RoundService {
     }
     const savings = player.$ - subtotal;
     const interest = player.owns("L") ? savings : 0;
-    const earnings = this.GameService.earnings(player.cities);
+    const earnings = this.earnings(player.cities);
     const middleClass = playerHasClass? 10 : 0;
     const afterIncome = savings + interest + earnings + middleClass;
     const onTokens = this.tokens;

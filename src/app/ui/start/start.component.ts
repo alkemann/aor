@@ -1,5 +1,7 @@
+import { GameService } from 'src/app/services/game.service';
 import { StartPhases } from './../../enums/start-phases';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'aor-start',
@@ -10,7 +12,10 @@ export class StartComponent implements OnInit {
 
   public phase: StartPhases;
 
-  constructor() {
+  constructor(
+    private router: Router,
+    private GameService: GameService
+  ) {
     this.phase = StartPhases.CREATE;
   }
 
@@ -21,7 +26,9 @@ export class StartComponent implements OnInit {
     this.phase += 1;
   }
 
-  public start(): void {
-    this.phase = 0;
+  public start(tokens:number): void {
+    this.phase = StartPhases.CREATE; // for next
+    this.GameService.start(tokens);
+    this.router.navigate(['turn']);
   }
 }

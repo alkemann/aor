@@ -12,20 +12,11 @@ export class TokensComponent implements OnInit {
 
   @Output() done: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(
-    public PlayerService: PlayerService,
-    private RoundService: RoundService,
-    private GameService: GameService
-  ) { }
+  constructor(public PlayerService: PlayerService) { }
 
   ngOnInit(): void { }
 
-  public buyTokens(amount: string): void {
-    const tokens = parseInt(amount);
-    const player = this.PlayerService.player;
-    player.spend = tokens;
-    this.RoundService.startNextRound(tokens, player.$);
-    this.GameService.start();
-    this.done.emit();
+  public buyTokens(tokens: string): void {
+    this.done.emit(parseInt(tokens));
   }
 }

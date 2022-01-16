@@ -4,6 +4,9 @@
 .editorconfig
 .vscode/
 
+*.pdf
+*.jpeg
+
 # compiled output
 /dist
 /tmp

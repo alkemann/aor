@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { PlayerService } from './../../services/player.service';
 import { MiseryChange, RoundService, Spending } from './../../services/round.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,6 +12,7 @@ import { GameService } from 'src/app/services/game.service';
 export class TurnLogComponent implements OnInit {
 
   constructor(
+    private Router: Router,
     public GameService: GameService,
     public RoundService: RoundService,
     public PlayerService: PlayerService
@@ -20,6 +22,10 @@ export class TurnLogComponent implements OnInit {
   public spending: Spending;
 
   ngOnInit(): void {
+    if (this.GameService.game === false) {
+      this.Router.navigate(['start']);
+      return;
+    }
     this.spending = this.RoundService.spending;
     this.miseryChange = this.RoundService.miseryChange;
   }
