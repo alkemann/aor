@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { PlayerService } from './../../services/player.service';
 import { GameService } from 'src/app/services/game.service';
 import { StartPhases } from './../../enums/start-phases';
@@ -23,7 +24,9 @@ export class StartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.quickTestSetup();
+    if (environment.testSetup) {
+      this.quickTestSetup();
+    }
   }
 
   public quickTestSetup(): void {
