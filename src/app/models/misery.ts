@@ -19,6 +19,7 @@ export class Misery {
 
   public incByLevel(l: number = 1): void {
     this.m += l;
+    this.m = Math.max(0, this.m);
   }
 
   public levelOf(new_value: number): number {

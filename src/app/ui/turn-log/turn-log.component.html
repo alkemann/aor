@@ -23,6 +23,21 @@
             <th>Written money</th>
             <td>${{spending.startedWith}}</td>
         </tr>
+        <tr>
+            <th>Current player cash</th>
+            <td>${{PlayerService.player.$}}</td>
+        </tr>
+        <tr>
+            <th>Adjust Cash</th>
+            <td class="buttons">
+                <button (click)="adjustCash(-10)">-10</button> &nbsp;
+                <button (click)="adjustCash(-5)">-5</button> &nbsp;
+                <button (click)="adjustCash(-1)">-1</button> &nbsp;
+                <button (click)="adjustCash(1)">+1</button> &nbsp;
+                <button (click)="adjustCash(5)">+5</button> &nbsp;
+                <button (click)="adjustCash(10)">+10</button>
+            </td>
+        </tr>
         <tr *ngIf="PlayerService.player.owns('V')">
             <th> + <button (click)="buyCard()">Buy Card?</button></th>
             <td>${{spending.onCard}}</td>
@@ -44,14 +59,22 @@
             <td class="buttons">
                 <button (click)="handSize(-1)">-</button> &nbsp;
                 <button (click)="handSize(1)">+</button> &nbsp;
-                <button (click)="toggleStabilization()">Pay?</button>
+                <button (click)="toggleStabilization()">
+                    {{this.RoundService.payingStabiliztion ? 'Paying' : 'Miserable'}}
+                </button>
             </td>
         </tr>
         <tr *ngIf="spending.onHand > 0">
             <th> + on Hand Stabilization</th>
             <td>${{RoundService.payingStabiliztion ? spending.onHand : 0}}</td>
         </tr>
-
+        <tr>
+            <th>Adjust Misery</th>
+            <td class="buttons">
+                <button (click)="adjustMisery(-1)">-1</button> &nbsp;
+                <button (click)="adjustMisery(1)">+1</button> &nbsp;
+            </td>
+        </tr>
         <tr>
             <td>
                 <table>
@@ -76,7 +99,7 @@
                         <td>{{miseryChange.total}}m</td>
                     </tr>
                     <tr>
-                        <th>Misary Index</th>
+                        <th>Misery Index</th>
                         <td>
                             <span *ngIf="miseryChange.change > 0">UP {{abs(miseryChange.change)}}</span>
                             <span *ngIf="miseryChange.change < 0">DOWN {{abs(miseryChange.change)}}</span>
@@ -87,15 +110,18 @@
             </td>
         </tr>
         <tr>
-            <td class="buttons">
-                <button (click)="buyMR(-5)">--</button> &nbsp;
-                <button (click)="buyMR(-1)">-</button> &nbsp;
-                <button (click)="buyMR(1)">+</button> &nbsp;
-                <button (click)="buyMR(5)">++</button>
+            <td class="buttons" colspan="2">
+                <button (click)="buyMR(-10)">-10</button> &nbsp;
+                <button (click)="buyMR(-5)">-5</button> &nbsp;
+                <button (click)="buyMR(-1)">-1</button> &nbsp;
+                <button (click)="buyMR(1)">+1</button> &nbsp;
+                <button (click)="buyMR(5)">+5</button> &nbsp;
+                <button (click)="buyMR(10)">+10</button>
             </td>
-        </tr><tr>
-            <th> + on Misary Relief</th>
-            <td class="top">${{spending.onMisary}}</td>
+        </tr>
+        <tr>
+            <th> + on Misery Relief</th>
+            <td class="top">${{spending.onMisery}}</td>
         </tr>
         <tr>
             <th> = Total:</th><td>${{spending.subtotal}}</td>
@@ -120,14 +146,11 @@
             <th>
                 <button (click)="cities(-1)">-</button> &nbsp;
                 <button (click)="cities(1)">+</button> &nbsp;
-                 + {{PlayerService.player.cities}} Cities</th>
-            <td>${{spending.earnings}}</td>
+                + {{PlayerService.player.cities}} Cities
+                <span *ngIf="spending.middleClass != 0">+ Middle Class</span>
+            </th>
+            <td>${{spending.earnings + spending.middleClass}}</td>
         </tr>
-        <tr *ngIf="spending.middleClass != 0">
-            <th> + Middle Class</th>
-            <td>${{spending.middleClass}}</td>
-        </tr>
-
         <tr>
             <th>After Income</th>
             <td>${{spending.afterIncome}}</td>

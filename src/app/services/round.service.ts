@@ -8,7 +8,7 @@ export type Spending = {
   onAdvances: number,
   onCard: number,
   onHand: number,
-  onMisary: number,
+  onMisery: number,
   subtotal: number,
   savings: number,
   interest: number
@@ -182,12 +182,16 @@ export class RoundService {
     if (this.payingStabiliztion === false) {
       increases += misery.failedStabilization(this.stabilizationCost);
     }
+    if (this.buyingThisRound.has("K")) {
+      increases -= 1;
+    }
     const fromIncreases = misery.miFromMoreLevels(increases);
     const fromAdvances = this.reliefFromAdvances;
     const subtotal = fromIncreases - fromAdvances;
     const fromCash = this.relief;
     const total = subtotal - fromCash;
     const change = misery.changeToSteps(total);
+
     return {
       increases,
       fromIncreases,
@@ -210,19 +214,24 @@ export class RoundService {
 
   public get spending(): Spending {
     const player = this.PlayerService.player;
-    const playerHasClass = player.owns("Z");
+    const playerHasClass = this.buyingThisRound.has("Z") || player.owns("Z");
     const onAdvances: number = this.advanceCost ?? 0;
-    const onMisary = this.relief;
+    const onMisery = this.relief;
     const onHand = this.stabilizationCost;
     const onCard = this.card ? 10 : 0;
-    let subtotal = onAdvances + onMisary + onCard;
+    let subtotal = onAdvances + onMisery + onCard;
     if (this.payingStabiliztion) {
       subtotal += onHand;
     }
     const savings = player.$ - subtotal;
-    const interest = player.owns("L") ? savings : 0;
     const earnings = this.earnings(player.cities);
     const middleClass = playerHasClass? 10 : 0;
+    let interest;
+    if (this.buyingThisRound.has("L") || player.owns("L")) {
+      interest = Math.min(savings, earnings + middleClass);
+    } else {
+      interest = 0;
+    }
     const afterIncome = savings + interest + earnings + middleClass;
     const onTokens = this.tokens;
     const nextTurn = afterIncome - onTokens;
@@ -231,7 +240,7 @@ export class RoundService {
       onAdvances,
       onCard,
       onHand,
-      onMisary,
+      onMisery,
       subtotal,
       savings,
       interest,

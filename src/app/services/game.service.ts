@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { RoundService } from './round.service';
 import { PlayerService } from './player.service';
 import { Injectable } from '@angular/core';
@@ -23,6 +24,7 @@ export class GameService {
   public rounds: Round[] = [];
 
   constructor(
+    private Router: Router,
     private RoundService: RoundService,
     private PlayerService: PlayerService
   ) {}
@@ -59,6 +61,7 @@ export class GameService {
       cash: spending.nextTurn
     };
     this.RoundService.apply();
+    this.Router.navigate(['turn']);
   }
 
   public get numberOfPlayers(): number { return this._game.playerCount; }

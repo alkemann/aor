@@ -8,7 +8,7 @@ export class Player {
   private purchased: Set<string>;
   public misery: Misery;
   public cathedral: boolean = false;
-  public cities: number = 0;
+  public cities: number = 1;
 
   public bid: number = 0;
   public nation: Nation;

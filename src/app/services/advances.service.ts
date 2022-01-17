@@ -2,10 +2,10 @@ import { ADVANCES } from './../data/advances';
 import { Injectable } from '@angular/core';
 import { Advance } from '../interfaces/advance';
 
-interface AdvanceList {
+export interface AdvanceList {
   [key: string]: string;
 }
-interface CategoryList {
+export interface CategoryList {
   [key: string]: AdvanceList
 }
 

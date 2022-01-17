@@ -41,6 +41,16 @@ export class TurnLogComponent implements OnInit {
     this.spending = this.RoundService.spending;
   }
 
+  public adjustCash($: number): void {
+    this.PlayerService.player.earn = $;
+    this.spending = this.RoundService.spending;
+  }
+
+  public adjustMisery(m: number): void {
+    this.PlayerService.player.misery.incByLevel(m);
+    this.miseryChange = this.RoundService.miseryChange;
+  }
+
   public buyCard(): void {
     this.RoundService.buyCard();
     this.spending = this.RoundService.spending;
