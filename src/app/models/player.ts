@@ -1,3 +1,4 @@
+import { AdvancesService } from './../services/advances.service';
 import { Misery } from './misery';
 import { Nation } from '../enums/nation';
 
@@ -23,9 +24,22 @@ export class Player {
   public get name(): string { return this._name; }
   public get $(): number { return this._gold; }
 
+  public get miseryReliefLevels(): number {
+    let out = 0;
+    // count how many player has of each level,
+
+    // console.log(owns);
+    return out;
+  }
+
   set $($: number) {
     if ($ < 0) throw new Error("Money must be positive!");
     this._gold = $;
+  }
+
+  public set earn($: number) {
+    this._gold += $;
+    this._gold = Math.max(0, this._gold);
   }
 
   public set spend($: number) {

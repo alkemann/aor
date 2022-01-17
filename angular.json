@@ -106,8 +106,8 @@
         },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
-		      "options": {
-            "base-href": "/aor/"
+          "options": {
+            "baseHref": "/aor/"
           }
         }
       }
