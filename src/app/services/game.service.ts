@@ -18,6 +18,7 @@ type Round = {
 })
 export class GameService {
 
+  private _bids: Bid[];
   private _game: Game;
   public get game(): boolean { return this._game instanceof Game && this._game.started; }
 
@@ -41,13 +42,22 @@ export class GameService {
   public start(tokens: number): void {
 
     const player = this.PlayerService.player;
+
+    const bids: Bid[] = [];
+    bids.push({name: player.name, $: player.bid, nation: player.nation});
+    this.PlayerService.others.forEach(p => bids.push({
+      name: p.name, $: p.bid, nation: p.nation
+    }));
+    bids.sort( (a,b) => a.$ < b.$ ? 1 : -1 );
+    this._bids = bids;
+
     player.spend = tokens;
     this.RoundService.startNextRound(tokens, player.$);
     this.round = {
       i: 1,
       total: player.$,
       tokens,
-      cash:player.$
+      cash:player.$,
     };
     this._game.startGame();
   }
@@ -67,14 +77,7 @@ export class GameService {
   public get numberOfPlayers(): number { return this._game.playerCount; }
 
   public get bids(): any[] {
-    const bids: Bid[] = [];
-    const player = this.PlayerService.player;
-    bids.push({name: player.name, $: player.bid, nation: player.nation});
-    this.PlayerService.others.forEach(p => bids.push({
-      name: p.name, $: p.bid, nation: p.nation
-    }));
-    bids.sort( (a,b) => a.$ < b.$ ? 1 : -1 );
-    return bids;
+    return this._bids;
   }
 
   public set round(r: Round) {

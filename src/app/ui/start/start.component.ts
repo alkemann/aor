@@ -33,32 +33,56 @@ export class StartComponent implements OnInit {
 
     // create
     this.GameService.createGame({
-      count: "4",
+      count: "5",
       sameTurnResearch: true
     });
 
     // names
     this.PlayerService.newPlayer("Alexander");
-    this.PlayerService.newOtherPlayer("Steffen");
     this.PlayerService.newOtherPlayer("Tord");
-    this.PlayerService.newOtherPlayer("Pål Antonsen");
+    this.PlayerService.newOtherPlayer("Erlend");
+    this.PlayerService.newOtherPlayer("Steffen");
+    this.PlayerService.newOtherPlayer("Daniel");
 
     // bid
-    this.PlayerService.player.payForBid(4);
+    const player = this.PlayerService.player;
+    player.payForBid(4);
 
     // devide
-    this.PlayerService.player.nation = Nation.Venice;
+    this.PlayerService.player.nation = Nation.Paris;
     const players = this.PlayerService.others;
     players[0].nation = Nation.Barcelona;
     players[0].bid = 3;
-    players[1].nation = Nation.Genova;
+    players[1].nation = Nation.Venice;
     players[1].bid = 5;
-    players[2].nation = Nation.Paris;
-    players[2].bid = 1;
+    players[2].nation = Nation.London;
+    players[2].bid = 2;
+    players[3].nation = Nation.Genova;
+    players[3].bid = 4;
 
     // tokens
     this.GameService.start(25);
     this.router.navigate(['turn']);
+
+    // add some fake turns
+    player.earn = 400;
+    player.misery.incByLevel(4);
+    player.add("A");
+    player.add("B");
+
+    player.add("E");
+
+    player.add("I");
+    player.add("J");
+    player.add("K");
+    player.add("L");
+
+    player.add("N");
+
+    player.add("R");
+
+    player.add("V");
+    player.add("Z");
   }
 
   public after(): void {

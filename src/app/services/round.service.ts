@@ -190,8 +190,8 @@ export class RoundService {
     const subtotal = fromIncreases - fromAdvances;
     const fromCash = this.relief;
     const total = subtotal - fromCash;
-    const change = misery.changeToSteps(total);
-
+    let change = misery.changeToSteps(total);
+    change = Math.max(change, (-1 * this.PlayerService.miseryReliefLevels));
     return {
       increases,
       fromIncreases,

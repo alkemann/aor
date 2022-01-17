@@ -1,4 +1,4 @@
-<div id="content">
+<div id="content" *ngIf="PlayerService.player && GameService.game">
 <h2>TURN LOG</h2>
 <table id="bids" [cellPadding]="0" [cellSpacing]="0" >
     <tr><th [colSpan]="GameService.bids.length">Capital bids</th></tr>
@@ -12,7 +12,7 @@
     <h3>Turn {{RoundService.round}}</h3>
     <table id="spending" [cellPadding]="5" [cellSpacing]="5">
         <tr>
-            <th>Current Misary index</th>
+            <th>Current Misery index</th>
             <td>{{PlayerService.player.misery.level}}m</td>
         </tr>
         <tr>
@@ -69,6 +69,9 @@
             <td>${{RoundService.payingStabiliztion ? spending.onHand : 0}}</td>
         </tr>
         <tr>
+            <td>Misery: {{PlayerService.player.misery.level}}m</td>
+        </tr>
+        <tr>
             <th>Adjust Misery</th>
             <td class="buttons">
                 <button (click)="adjustMisery(-1)">-1</button> &nbsp;
@@ -79,11 +82,11 @@
             <td>
                 <table>
                     <tr *ngIf="miseryChange.increases > 0" >
-                        <th>{{miseryChange.increases}} Misary Increase</th>
+                        <th>{{miseryChange.increases}} Misery Increase</th>
                         <td>{{miseryChange.fromIncreases}}m</td>
                     </tr>
                     <tr *ngIf="miseryChange.fromAdvances > 0">
-                        <th>Misary relief</th>
+                        <th>Misery relief</th>
                         <td>-{{miseryChange.fromAdvances}}m</td>
                     </tr>
                     <tr *ngIf="miseryChange.increases > 0" >
@@ -95,7 +98,7 @@
                         <td>-{{miseryChange.fromCash}}m</td>
                     </tr>
                     <tr *ngIf="miseryChange.total != 0">
-                        <th> = Misary</th>
+                        <th> = Misery</th>
                         <td>{{miseryChange.total}}m</td>
                     </tr>
                     <tr>
@@ -103,7 +106,8 @@
                         <td>
                             <span *ngIf="miseryChange.change > 0">UP {{abs(miseryChange.change)}}</span>
                             <span *ngIf="miseryChange.change < 0">DOWN {{abs(miseryChange.change)}}</span>
-                            <span *ngIf="miseryChange.change == 0">unchanged</span>
+                            <span *ngIf="miseryChange.change == 0">-</span>
+                            <span> Max {{PlayerService.miseryReliefLevels}} down</span>
                         </td>
                     </tr>
                 </table>
