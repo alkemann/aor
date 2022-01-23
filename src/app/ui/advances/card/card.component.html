@@ -14,23 +14,21 @@
         <tr *ngFor="let adv of advances" (click)="roundService.buyAdvanceToggle(adv.key)">
 
             <ng-template [ngIf]="playerService.player.owns(adv.key)" [ngIfElse]="notOwned">
-                <td class="adv-level">{{adv.key}} - {{adv.name}}</td>
-                <td>&nbsp;</td>
-                <td class="adv-price">OWN ({{adv.cost}})</td>
-                <td class="adv-cred">{{adv.credit}} CR</td>
-                <td class="adv-mr">{{adv.relief}} MR <span *ngIf="adv.misery">1 MI</span></td>
-                <td class="adv-desc">{{adv.description}}</td>
-                <td class="adv-preq">Prerequisite: {{adv.prerequisites}}</td>
+                <td class="adv-level owned">{{adv.key}} - {{adv.name}}</td>
+                <td class="owned adv-price">OWN ({{adv.cost}})</td>
+                <td class="owned adv-cred">{{adv.credit}} CR</td>
+                <td class="owned adv-mr">{{adv.relief}} MR <span *ngIf="adv.misery">1 MI</span></td>
+                <td class="owned adv-desc">{{adv.description}}</td>
+                <td class="owned adv-preq">Prerequisite: {{adv.prerequisites}}</td>
             </ng-template>
 
             <ng-template #notOwned>
-                <td class="adv-level notowned">{{adv.key}} - {{adv.name}}</td>
-                <td><span *ngIf="roundService.buyCheck(adv.key); else blank">&check;</span><ng-template #blank>&nbsp;</ng-template></td>
-                <td class="adv-price notowned">${{roundService.cost(adv)}} ({{adv.points}})</td>
-                <td class="adv-cred notowned">{{adv.credit}} CR</td>
-                <td class="adv-mr notowned">{{adv.relief}} MR <span *ngIf="adv.misery">1 MI</span></td>
-                <td class="adv-desc notowned">{{adv.description}}</td>
-                <td class="adv-preq notowned">Prerequisite: {{adv.prerequisites}}</td>
+                <td [ngClass]="roundService.buyCheck(adv.key) ? 'buying' : 'notowned'" class="adv-level">{{adv.key}} - {{adv.name}}</td>
+                <td [ngClass]="roundService.buyCheck(adv.key) ? 'buying' : 'notowned'" class="adv-price">${{roundService.cost(adv)}} ({{adv.points}})</td>
+                <td [ngClass]="roundService.buyCheck(adv.key) ? 'buying' : 'notowned'" class="adv-cred">{{adv.credit}} CR</td>
+                <td [ngClass]="roundService.buyCheck(adv.key) ? 'buying' : 'notowned'" class="adv-mr">{{adv.relief}} MR <span *ngIf="adv.misery">1 MI</span></td>
+                <td [ngClass]="roundService.buyCheck(adv.key) ? 'buying' : 'notowned'" class="adv-desc">{{adv.description}}</td>
+                <td [ngClass]="roundService.buyCheck(adv.key) ? 'buying' : 'notowned'" class="adv-preq">Prerequisite: {{adv.prerequisites}}</td>
             </ng-template>
 
         </tr>

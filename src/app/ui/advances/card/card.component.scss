@@ -13,17 +13,36 @@ table.adv{
         text-transform: capitalize;
     }
     tr:nth-child(even) {
-        background-color: lightblue;
+        color: #333;
+        td {
+            background-color: lightblue;
+        }
+        td.owned {
+            background-color:pink;
+        }
+        td.buying {
+            background-color: mediumseagreen;
+        }
 
     }
     tr:nth-child(odd) {
+        color: #333;
+        td {
+            background-color: rgb(144, 193, 209);
+        }
+        td.owned {
+            background-color: rgb(236, 170, 181);
+        }
+        td.buying {
+            background-color: rgb(46, 156, 96);
+        }
     }
     td {
         white-space: nowrap;
         vertical-align: top;
         padding: 3px 0.35em;
     }
-    td.notowned {
+    td.notowned, td.buying {
         cursor: pointer;
     }
     td.adv-level {
