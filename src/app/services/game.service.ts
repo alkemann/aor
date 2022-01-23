@@ -63,7 +63,7 @@ export class GameService {
   }
 
   public nextTurn(): void {
-    const spending = this.RoundService.spending;
+    const spending = this.RoundService.spending();
     this.round = {
       i: this.RoundService.round,
       total: spending.startedWith,

@@ -170,13 +170,14 @@ export class RoundService {
   public apply(): void {
     const player = this.PlayerService.player;
     this.buyingThisRound.forEach(k => player.add(k));
-    const spending = this.spending;
+    const spending = this.spending();
     player.$ = spending.nextTurn;
-    player.misery.incByLevel(this.miseryChange.change);
+    const miseryChange = this.miseryChange()
+    player.misery.incByLevel(miseryChange.change);
     this.startNextRound(spending.onTokens, spending.nextTurn);
   }
 
-  public get miseryChange(): MiseryChange {
+  public miseryChange(): MiseryChange {
     const misery = this.PlayerService.player.misery;
     let increases = this.mi;
     if (this.payingStabiliztion === false) {
@@ -212,7 +213,7 @@ export class RoundService {
     return 15 + (cities * pl);
   }
 
-  public get spending(): Spending {
+  public spending(): Spending {
     const player = this.PlayerService.player;
     const playerHasClass = this.buyingThisRound.has("Z") || player.owns("Z");
     const onAdvances: number = this.advanceCost ?? 0;
