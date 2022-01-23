@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Nation } from 'src/app/enums/nation';
 
+
 @Component({
   selector: 'aor-start',
   templateUrl: './start.component.html',
@@ -25,8 +26,9 @@ export class StartComponent implements OnInit {
 
   ngOnInit(): void {
     if (environment.testSetup) {
-      this.quickTestSetup();
+      Promise.resolve().then(() => this.quickTestSetup());
     }
+
   }
 
   public quickTestSetup(): void {
