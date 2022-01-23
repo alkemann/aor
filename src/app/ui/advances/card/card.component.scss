@@ -14,7 +14,7 @@ table.adv{
     }
     tr:nth-child(even) {
         color: #333;
-        td {
+        td.notowned {
             background-color: lightblue;
         }
         td.owned {
@@ -27,7 +27,7 @@ table.adv{
     }
     tr:nth-child(odd) {
         color: #333;
-        td {
+        td.notowned {
             background-color: rgb(144, 193, 209);
         }
         td.owned {

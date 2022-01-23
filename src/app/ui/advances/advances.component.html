@@ -1,9 +1,16 @@
 <br/>
-<div>
+<div *ngIf="playerService.player">
     <div class="cost">
         Capital: {{playerService.player.$}} |
         Cost: {{roundService.advanceCost}} |
         After: {{playerService.player.$ - roundService.advanceCost}}
+    </div>
+    <div class="legend">
+        <table><tr>
+            <td class="notowned">Available</td>
+            <td class="owned">Owned</td>
+            <td class="buying">Buying</td>
+        </tr></table>
     </div>
     <aor-adv-card *ngFor="let category of advancesService.categories" [category]="category">
     </aor-adv-card>

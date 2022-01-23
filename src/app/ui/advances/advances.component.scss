@@ -4,3 +4,21 @@ div.cost {
     font-size: 150%;
     font-weight: bold;
 }
+.legend {
+    color: #333;
+    margin: 0.3em auto;
+    text-align: center;
+    width: 15em;
+    td {
+        padding: 2px 0.5em;
+    }
+    td.notowned {
+        background-color: lightblue;
+    }
+    td.owned {
+        background-color:pink;
+    }
+    td.buying {
+        background-color: mediumseagreen;
+    }
+}

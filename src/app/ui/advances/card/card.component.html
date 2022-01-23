@@ -15,7 +15,7 @@
 
             <ng-template [ngIf]="playerService.player.owns(adv.key)" [ngIfElse]="notOwned">
                 <td class="adv-level owned">{{adv.key}} - {{adv.name}}</td>
-                <td class="owned adv-price">OWN ({{adv.cost}})</td>
+                <td class="owned adv-price">${{adv.points}}</td>
                 <td class="owned adv-cred">{{adv.credit}} CR</td>
                 <td class="owned adv-mr">{{adv.relief}} MR <span *ngIf="adv.misery">1 MI</span></td>
                 <td class="owned adv-desc">{{adv.description}}</td>
