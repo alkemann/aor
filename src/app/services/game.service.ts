@@ -18,7 +18,6 @@ export class GameService {
   private _game: Game|null;
   public get game(): boolean { return this._game instanceof Game && this._game.started; }
 
-  public rounds: Round[] = [];
 
   constructor(
     private Router: Router,
@@ -53,23 +52,11 @@ export class GameService {
 
     player.spend = tokens;
     this.RoundService.startNextRound(tokens, player.$);
-    this.round = {
-      i: 1,
-      total: player.$,
-      tokens,
-      cash:player.$,
-    };
     this._game.startGame();
   }
 
   public nextTurn(): void {
     const spending = this.RoundService.spending();
-    this.round = {
-      i: this.RoundService.round,
-      total: spending.startedWith,
-      tokens: spending.onTokens,
-      cash: spending.nextTurn
-    };
     this.RoundService.apply();
     this.Router.navigate(['turn']);
   }
@@ -78,10 +65,6 @@ export class GameService {
 
   public get bids(): any[] {
     return this._bids;
-  }
-
-  public set round(r: Round) {
-    this.rounds.push(r)
   }
 
   public score(): Score {
@@ -97,7 +80,6 @@ export class GameService {
   }
 
   public restart(): void {
-    this.rounds = [];
     this._bids = [];
     this._game = null;
     this.RoundService.restart();

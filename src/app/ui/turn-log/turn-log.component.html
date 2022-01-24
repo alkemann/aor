@@ -189,7 +189,7 @@
         <th>Tokens</th>
         <th>Cash</th>
     </tr>
-    <tr *ngFor="let round of GameService.rounds">
+    <tr *ngFor="let round of RoundService.rounds">
         <td>{{round.total}}</td><td>{{round.i}}</td><td>{{round.tokens}}</td><td>{{round.cash}}</td>
     </tr>
 </table>

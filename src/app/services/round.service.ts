@@ -4,14 +4,16 @@ import { AdvancesService } from 'src/app/services/advances.service';
 import { Injectable } from '@angular/core';
 import { Advance } from '../interfaces/advance';
 import { MiseryChange } from '../interfaces/miseryChange';
+import { Round } from '../interfaces/round';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoundService {
 
-  private r: number = 1;
+  private r: number = 0;
   public get round(): number { return this.r; };
+  public rounds: Round[] = [];
 
   public payingStabiliztion: boolean = true;
   public hand: number = 0;
@@ -133,7 +135,7 @@ export class RoundService {
   }
 
   public restart(): void {
-    this.r = 1;
+    this.r = 0;
     this.hand = 1;
     this._tokens = 0;
     this._relief = 0;
@@ -141,10 +143,15 @@ export class RoundService {
     this._boughtTokens = 0
     this._startCash = 40;
     this.payingStabiliztion = true;
-
+    this.rounds = [];
   }
 
   public startNextRound(tokens: number, cash: number): void {
+    let r;
+    if (r = this.rounds.pop()) {
+      r.cash = cash;
+      this.rounds.push(r);
+    }
     this.r++;
     this.hand++;
     this._tokens = 0;
@@ -154,6 +161,12 @@ export class RoundService {
     this._boughtTokens = tokens;
     this._startCash = cash;
     this.buyingThisRound = new Set();
+    this.rounds.push({
+      i: this.r - 1,
+      total: cash,
+      tokens,
+      cash: null,
+    });
   }
 
   public apply(): void {
