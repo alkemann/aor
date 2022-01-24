@@ -17,7 +17,7 @@
         </tr>
         <tr>
             <th>Tokens to spend</th>
-            <td>&#9632; {{RoundService.exploreTokens}}</td>
+            <td>{{RoundService.exploreTokens}}▣</td>
         </tr>
         <tr>
             <th>Written money</th>
@@ -28,18 +28,18 @@
             <td>${{PlayerService.player.$}}</td>
         </tr>
         <tr>
-            <th>Adjust Cash</th>
-            <td class="buttons">
-                <button (click)="adjustCash(-10)">-10</button> &nbsp;
-                <button (click)="adjustCash(-5)">-5</button> &nbsp;
-                <button (click)="adjustCash(-1)">-1</button> &nbsp;
-                <button (click)="adjustCash(1)">+1</button> &nbsp;
-                <button (click)="adjustCash(5)">+5</button> &nbsp;
-                <button (click)="adjustCash(10)">+10</button>
+            <td class="buttons" colspan="2">
+                Adjust Cash:
+                <button (click)="adjustCash(-10)">-$10</button> &nbsp;
+                <button (click)="adjustCash(-5)">-$5</button> &nbsp;
+                <button (click)="adjustCash(-1)">-$1</button> &nbsp;
+                <button (click)="adjustCash(1)">+$1</button> &nbsp;
+                <button (click)="adjustCash(5)">+$5</button> &nbsp;
+                <button (click)="adjustCash(10)">+$10</button>
             </td>
         </tr>
         <tr *ngIf="PlayerService.player.owns('V')">
-            <th> + <button (click)="buyCard()">Buy Card?</button></th>
+            <th> + Urban Ascendency <button (click)="buyCard()">{{ spending.onCard ? 'Buying card' : 'No extra card' }}</button></th>
             <td>${{spending.onCard}}</td>
         </tr>
         <tr *ngFor="let a of RoundService.advances">
@@ -51,35 +51,28 @@
             <td>${{spending.onAdvances}}</td>
         </tr>
         <tr>
-            <td>
-                Cards : {{RoundService.hand}} costs ${{spending.onHand}}
-            </td>
-        </tr>
-        <tr>
             <td class="buttons">
-                <button (click)="handSize(-1)">-</button> &nbsp;
-                <button (click)="handSize(1)">+</button> &nbsp;
-                <button (click)="toggleStabilization()">
-                    {{this.RoundService.payingStabiliztion ? 'Paying' : 'Miserable'}}
-                </button>
+                {{RoundService.hand}} cards (${{spending.onHand}})
+                <button (click)="handSize(-1)">- card</button> &nbsp;
+                <button (click)="handSize(1)">+ card</button> &nbsp;
+
             </td>
         </tr>
         <tr *ngIf="spending.onHand > 0">
-            <th> + on Hand Stabilization</th>
+            <th> + on Hand Stabilization <button (click)="toggleStabilization()">
+                {{this.RoundService.payingStabiliztion ? 'Paying' : 'Miserable'}}
+            </button></th>
             <td>${{RoundService.payingStabiliztion ? spending.onHand : 0}}</td>
         </tr>
         <tr>
-            <td>Misery: {{PlayerService.player.misery.level}}m</td>
-        </tr>
-        <tr>
-            <th>Adjust Misery</th>
             <td class="buttons">
-                <button (click)="adjustMisery(-1)">-1</button> &nbsp;
-                <button (click)="adjustMisery(1)">+1</button> &nbsp;
+                Misery: {{PlayerService.player.misery.level}}m
+                <button (click)="adjustMisery(-1)">-1 level</button> &nbsp;
+                <button (click)="adjustMisery(1)">+1 level</button> &nbsp;
             </td>
         </tr>
         <tr>
-            <td>
+            <td colspan="2">
                 <table>
                     <tr *ngIf="miseryChange.increases > 0" >
                         <th>{{miseryChange.increases}} Misery Increase</th>
@@ -104,23 +97,24 @@
                     <tr>
                         <th>Misery Index</th>
                         <td>
-                            <span *ngIf="miseryChange.change > 0">UP {{abs(miseryChange.change)}}</span>
-                            <span *ngIf="miseryChange.change < 0">DOWN {{abs(miseryChange.change)}}</span>
+                            <span *ngIf="miseryChange.change > 0">⇧ {{abs(miseryChange.change)}}</span>
+                            <span *ngIf="miseryChange.change < 0">⇩ {{abs(miseryChange.change)}}</span>
                             <span *ngIf="miseryChange.change == 0">-</span>
-                            <span> Max {{PlayerService.miseryReliefLevels}} down</span>
                         </td>
                     </tr>
+                    <tr><td><span> Max {{PlayerService.miseryReliefLevels}} ⇩</span></td></tr>
                 </table>
             </td>
         </tr>
         <tr>
             <td class="buttons" colspan="2">
-                <button (click)="buyMR(-10)">-10</button> &nbsp;
-                <button (click)="buyMR(-5)">-5</button> &nbsp;
-                <button (click)="buyMR(-1)">-1</button> &nbsp;
-                <button (click)="buyMR(1)">+1</button> &nbsp;
-                <button (click)="buyMR(5)">+5</button> &nbsp;
-                <button (click)="buyMR(10)">+10</button>
+                Misery relief:
+                <button (click)="buyMR(-10)">-$10</button> &nbsp;
+                <button (click)="buyMR(-5)">-$5</button> &nbsp;
+                <button (click)="buyMR(-1)">-$1</button> &nbsp;
+                <button (click)="buyMR(1)">+$1</button> &nbsp;
+                <button (click)="buyMR(5)">+$5</button> &nbsp;
+                <button (click)="buyMR(10)">+$10</button>
             </td>
         </tr>
         <tr>
@@ -148,8 +142,8 @@
         </tr>
         <tr>
             <th>
-                <button (click)="cities(-1)">-</button> &nbsp;
-                <button (click)="cities(1)">+</button> &nbsp;
+                <button (click)="cities(-1)">-1</button> &nbsp;
+                <button (click)="cities(1)">+1</button> &nbsp;
                 + {{PlayerService.player.cities}} Cities
                 <span *ngIf="spending.middleClass != 0">+ Middle Class</span>
             </th>
@@ -161,18 +155,16 @@
         </tr>
 
         <tr>
-            <td>Tokens {{RoundService.tokens}}</td>
-        </tr>
-        <tr>
-            <td class="buttons">
-                <button (click)="buyTokens(-5)">--</button> &nbsp;
-                <button (click)="buyTokens(-1)">-</button> &nbsp;
-                <button (click)="buyTokens(1)">+</button> &nbsp;
-                <button (click)="buyTokens(5)">++</button>
+            <td class="buttons" colspan="2">
+                Tokens:
+                <button (click)="buyTokens(-5)">-5▣</button> &nbsp;
+                <button (click)="buyTokens(-1)">-1▣</button> &nbsp;
+                <button (click)="buyTokens(1)">+1▣</button> &nbsp;
+                <button (click)="buyTokens(5)">+5▣</button>
             </td>
         </tr>
         <tr>
-            <th> + on Tokens</th>
+            <th> + on {{RoundService.tokens}}▣ Tokens</th>
             <td class="top">${{RoundService.tokens}}</td>
         </tr>
 
