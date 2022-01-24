@@ -51,6 +51,7 @@ export class Player {
     return this.purchased.has(letter);
   }
 
+
   public add(adv: string): void {
     this.purchased.add(adv);
   }

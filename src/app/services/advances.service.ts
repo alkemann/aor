@@ -1,6 +1,6 @@
+import { Advance } from './../interfaces/advance';
 import { ADVANCES } from './../data/advances';
 import { Injectable } from '@angular/core';
-import { Advance } from '../interfaces/advance';
 
 export interface AdvanceList {
   [key: string]: string;
@@ -31,6 +31,10 @@ export class AdvancesService {
       }
     }
     return out;
+  }
+
+  public all(): Advance[] {
+    return this.data;
   }
 
   public get list(): CategoryList {

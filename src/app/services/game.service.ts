@@ -1,3 +1,4 @@
+import { AdvancesService } from './advances.service';
 import { Router } from '@angular/router';
 import { RoundService } from './round.service';
 import { PlayerService } from './player.service';
@@ -5,13 +6,8 @@ import { Injectable } from '@angular/core';
 import { Game } from '../models/game';
 import { Rules } from '../interfaces/rules';
 import { Bid } from '../interfaces/bid';
-
-type Round = {
-  i: number,
-  total: number,
-  tokens: number,
-  cash:number
-}
+import { Score } from './../interfaces/score';
+import { Round } from '../interfaces/round';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +15,7 @@ type Round = {
 export class GameService {
 
   private _bids: Bid[];
-  private _game: Game;
+  private _game: Game|null;
   public get game(): boolean { return this._game instanceof Game && this._game.started; }
 
   public rounds: Round[] = [];
@@ -27,7 +23,8 @@ export class GameService {
   constructor(
     private Router: Router,
     private RoundService: RoundService,
-    private PlayerService: PlayerService
+    private PlayerService: PlayerService,
+    private AdvancesService: AdvancesService,
   ) {}
 
   public createGame(setupForm:any): any
@@ -40,7 +37,10 @@ export class GameService {
   }
 
   public start(tokens: number): void {
-
+    if (!this._game) {
+      console.error("Game started before created!");
+      return;
+    }
     const player = this.PlayerService.player;
 
     const bids: Bid[] = [];
@@ -74,7 +74,7 @@ export class GameService {
     this.Router.navigate(['turn']);
   }
 
-  public get numberOfPlayers(): number { return this._game.playerCount; }
+  public numberOfPlayers(): number { return this._game ? this._game.playerCount : 0; }
 
   public get bids(): any[] {
     return this._bids;
@@ -82,5 +82,25 @@ export class GameService {
 
   public set round(r: Round) {
     this.rounds.push(r)
+  }
+
+  public score(): Score {
+    const player = this.PlayerService.player;
+    const cash = player.$;
+    let advances = 0;
+    this.AdvancesService.all().forEach(k => {
+      advances += player.owns(k.key) ? k.points : 0;
+    });
+    const misery = player.misery.level;
+    const total = cash + advances - misery;
+    return {cash, advances, misery, total};
+  }
+
+  public restart(): void {
+    this.rounds = [];
+    this._bids = [];
+    this._game = null;
+    this.RoundService.restart();
+    this.PlayerService.restart();
   }
 }

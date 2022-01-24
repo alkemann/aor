@@ -43,5 +43,8 @@ export class PlayerService {
     return min
   }
 
-
+  public restart(): void {
+    this.player = new Player("PLACEHOLDER");
+    this.others = [];
+  }
 }

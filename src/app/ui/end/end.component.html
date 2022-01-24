@@ -1,1 +1,26 @@
-<p>Game Over</p>
+<div class="content">
+  <h3>Results</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Cash</th>
+        <th>Advances</th>
+        <th>Misery</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{score.cash}}</td>
+        <td>{{score.advances}}</td>
+        <td>{{score.misery}}</td>
+        <td>{{score.total}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <br>
+
+  <button (click)="newGame()">Start new game!</button>
+
+</div>

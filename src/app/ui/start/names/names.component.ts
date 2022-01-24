@@ -24,7 +24,7 @@ export class NamesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public get nrp(): number { return this.GameService.numberOfPlayers; }
+  public get nrp(): number { return this.GameService.numberOfPlayers(); }
 
   public submit(): void {
     // extract names and create players

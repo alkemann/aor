@@ -1,6 +1,8 @@
+import { Spending } from './../../interfaces/spending';
+import { MiseryChange } from './../../interfaces/miseryChange';
 import { Router } from '@angular/router';
 import { PlayerService } from './../../services/player.service';
-import { MiseryChange, RoundService, Spending } from './../../services/round.service';
+import { RoundService } from './../../services/round.service';
 import { Component, OnInit } from '@angular/core';
 import { GameService } from 'src/app/services/game.service';
 

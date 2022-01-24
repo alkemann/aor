@@ -1,33 +1,9 @@
+import { Spending } from './../interfaces/spending';
 import { PlayerService } from './player.service';
 import { AdvancesService } from 'src/app/services/advances.service';
 import { Injectable } from '@angular/core';
 import { Advance } from '../interfaces/advance';
-
-export type Spending = {
-  startedWith: number,
-  onAdvances: number,
-  onCard: number,
-  onHand: number,
-  onMisery: number,
-  subtotal: number,
-  savings: number,
-  interest: number
-  earnings: number,
-  middleClass: number,
-  afterIncome: number,
-  onTokens: number,
-  nextTurn: number,
-}
-
-export type MiseryChange = {
-  increases: number,
-  fromIncreases: number,
-  fromAdvances: number,
-  subtotal: number,
-  fromCash: number,
-  total: number,
-  change: number
-}
+import { MiseryChange } from '../interfaces/miseryChange';
 
 @Injectable({
   providedIn: 'root'
@@ -44,8 +20,9 @@ export class RoundService {
   private _relief: number = 0;
   private _startCash: number = 0;
   private _boughtTokens: number = 0;
-  public get exploreTokens(): number { return this._boughtTokens; };
   private _tokens: number = 0;
+
+  public get exploreTokens(): number { return this._boughtTokens; };
   public get tokens(): number { return this._tokens; }
   public get writtenMoney(): number { return this._startCash; }
 
@@ -153,6 +130,18 @@ export class RoundService {
       }
     )
     return out;
+  }
+
+  public restart(): void {
+    this.r = 1;
+    this.hand = 1;
+    this._tokens = 0;
+    this._relief = 0;
+    this._boughtCard = false;
+    this._boughtTokens = 0
+    this._startCash = 40;
+    this.payingStabiliztion = true;
+
   }
 
   public startNextRound(tokens: number, cash: number): void {

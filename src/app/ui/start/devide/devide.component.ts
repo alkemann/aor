@@ -31,14 +31,14 @@ export class DevideComponent implements OnInit {
   public get playerNames(): string[] { return this.pn; }
 
   ngOnInit(): void {
-    this.pk = Array.from(Array(this.GameService.numberOfPlayers-1).keys())
+    this.pk = Array.from(Array(this.GameService.numberOfPlayers()-1).keys())
     this.pn = this.PlayerService.others.map(p=>p.name);
     let an: string[] = [
       'Venice',
       'Genoa',
       'Barcelona'
     ];
-    const p:number = this.GameService.numberOfPlayers;
+    const p:number = this.GameService.numberOfPlayers();
     if (p >= 4) an.push('Paris');
     if (p >= 5) an.push('London');
     if (p >= 6) an.push('Hamburg');
