@@ -1,5 +1,6 @@
 import { Bid } from '../interfaces/bid';
 import { Rules } from '../interfaces/rules';
+import { Storable } from '../interfaces/storable';
 import { Nation } from './../enums/nation';
 
 interface GameState {
@@ -8,8 +9,7 @@ interface GameState {
   started: boolean;
 }
 
-export class Game {
-
+export class Game implements Storable {
 
   constructor(
     public readonly playerCount: number,
@@ -22,14 +22,7 @@ export class Game {
     this.started = true;
   }
 
-  public addBid(name: string, $: number, nation: Nation): Bid {
-    const bid = { name, $, nation };
-    // this._bids.push(bid);
-    // this._bids.sort((a, b) => a.$ > b.$ ? -1 : 1);
-    return bid;
-  }
-
-  saveableObject(): GameState {
+  makeStateObject(): GameState {
     return {
       playerCount: this.playerCount,
       rules: this.rules,
@@ -37,4 +30,8 @@ export class Game {
     };
   }
 
+}
+
+export function gameFromStateObject(state: GameState): Game {
+  return new Game(state.playerCount, state.rules, state.started);
 }

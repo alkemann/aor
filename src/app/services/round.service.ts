@@ -3,8 +3,8 @@ import { PlayerService } from './player.service';
 import { AdvancesService } from 'src/app/services/advances.service';
 import { Injectable } from '@angular/core';
 import { Advance } from '../interfaces/advance';
-import { MiseryChange } from '../interfaces/miseryChange';
-import { Round } from '../interfaces/round';
+import { MiseryChange } from '../interfaces/misery-change';
+import { RoundLog } from '../interfaces/round-log';
 import { User } from '../models/player';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class RoundService {
 
   private r: number = 0;
   public get round(): number { return this.r; };
-  public rounds: Round[] = [];
+  public rounds: RoundLog[] = [];
 
   public payingStabiliztion: boolean = true;
   public hand: number = 0;

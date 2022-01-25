@@ -1,5 +1,6 @@
 import { Misery } from './misery';
 import { Nation } from '../enums/nation';
+import { Storable } from '../interfaces/storable';
 
 interface PlayerInterface {
   readonly name: string;
@@ -12,7 +13,7 @@ interface PlayerInterface {
   toggle: (adv: string) => void;
 }
 
-export class Player implements PlayerInterface {
+export class Player implements PlayerInterface, Storable {
   bid: number = 0;
   purchased: Set<string> = new Set<string>();
   nation: Nation;
@@ -39,7 +40,7 @@ export class Player implements PlayerInterface {
     }
   }
 
-  saveableObject(): any {
+  makeStateObject(): any {
     const obj = {
       name: this.name,
       owns: Array.from(this.purchased),
@@ -48,25 +49,6 @@ export class Player implements PlayerInterface {
     };
     return obj;
   }
-
-  public loadState(state: PlayerState): void {
-    this.bid = state.bid;
-    this.nation = state.nation;
-    this.purchased = new Set(state.owns);
-  }
-}
-
-export interface PlayerState {
-  name: string,
-  owns: string[],
-  bid: number,
-  nation: Nation
-}
-
-export interface UserState extends PlayerState {
-  misery: number;
-  cities: number;
-  gold: number;
 }
 
 export class User extends Player {
@@ -96,18 +78,43 @@ export class User extends Player {
     this._gold = Math.max(0, this._gold);
   }
 
-  override saveableObject(): UserState {
-    const obj = super.saveableObject();
+  override makeStateObject(): UserState {
+    const obj = super.makeStateObject();
     obj.misery = this.misery.level;
     obj.cities = this.cities;
     obj.gold = this.$;
     return obj;
   }
+}
 
-  override loadState(state: UserState): void {
-    super.loadState(state);
-    this.misery = new Misery(state.misery);
-    this.cities = state.cities;
-    this._gold = state.gold;
-  }
+export interface PlayerState {
+  name: string,
+  owns: string[],
+  bid: number,
+  nation: Nation
+}
+
+export interface UserState extends PlayerState {
+  misery: number;
+  cities: number;
+  gold: number;
+}
+
+export function playerFromStateObject(state: PlayerState): Player {
+  const other = new Player(state.name);
+  other.bid = state.bid;
+  other.purchased = new Set(state.owns);
+  other.nation = state.nation;
+  return other;
+}
+
+export function userFromStateObject(state: UserState): User {
+  const user = new User(state.name);
+  user.bid = state.bid;
+  user.purchased = new Set(state.owns);
+  user.nation = state.nation;
+  user.misery = new Misery(state.misery);
+  user.cities = state.cities;
+  user.$ = state.gold;
+  return user;
 }

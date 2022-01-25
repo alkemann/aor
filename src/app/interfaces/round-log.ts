@@ -1,5 +1,5 @@
 
-export interface Round {
+export interface RoundLog {
   i: number,
   total: number,
   tokens: number,

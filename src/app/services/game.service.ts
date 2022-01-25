@@ -1,10 +1,10 @@
-import { PlayerState } from './../models/player';
+import { playerFromStateObject, PlayerState, userFromStateObject } from './../models/player';
 import { AdvancesService } from './advances.service';
 import { Router } from '@angular/router';
 import { RoundService } from './round.service';
 import { PlayerService } from './player.service';
 import { Injectable } from '@angular/core';
-import { Game } from '../models/game';
+import { Game, gameFromStateObject } from '../models/game';
 import { Rules } from '../interfaces/rules';
 import { Bid } from '../interfaces/bid';
 import { Score } from './../interfaces/score';
@@ -91,13 +91,13 @@ export class GameService {
   public save(): void {
     console.warn("Storing game state in local storage!");
     if (this._game) {
-      localStorage.setItem('game', JSON.stringify(this._game.saveableObject()));
+      localStorage.setItem('game', JSON.stringify(this._game.makeStateObject()));
     }
     if (this.PlayerService.player) {
-      localStorage.setItem('user', JSON.stringify(this.PlayerService.player.saveableObject()));
+      localStorage.setItem('user', JSON.stringify(this.PlayerService.player.makeStateObject()));
     }
     if (this.PlayerService.others.length > 0) {
-      const others = this.PlayerService.others.map( o => o.saveableObject() );
+      const others = this.PlayerService.others.map( o => o.makeStateObject() );
       localStorage.setItem('others', JSON.stringify(others));
     }
   }
@@ -106,7 +106,7 @@ export class GameService {
     console.warn("Loading game state from local storage!");
     const gameState = JSON.parse(localStorage.getItem('game') ?? 'false');
     if (gameState) {
-      this._game = new Game(gameState.playerCount, gameState.rules, gameState.started);
+      this._game = gameFromStateObject(gameState);
     } else  {
       console.error("LOAD FAILED: No game state");
       return;
@@ -114,21 +114,14 @@ export class GameService {
     const playerState = JSON.parse(localStorage.getItem('user') ?? 'false');
     let player: User;
     if (playerState) {
-      player = new User(playerState.name);
-      player.loadState(playerState);
-      this.PlayerService.player = player;
+      this.PlayerService.player = player = userFromStateObject(playerState); new User(playerState.name);
     } else {
       console.error("LOAD FAILED: No user state");
       return;
     }
     const othersState = JSON.parse(localStorage.getItem('others') ?? 'false');
     if (othersState) {
-      console.log(othersState);
-      this.PlayerService.others = othersState.map( (oState: PlayerState) => {
-        const other = new Player(oState.name);
-        other.loadState(oState);
-        return other;
-      });
+      this.PlayerService.others = othersState.map( (oState: PlayerState) => playerFromStateObject(oState) );
     } else {
       console.error("LOAD FAILED: No others' state");
       return;

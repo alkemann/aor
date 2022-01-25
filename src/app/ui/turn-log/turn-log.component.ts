@@ -1,5 +1,5 @@
 import { Spending } from './../../interfaces/spending';
-import { MiseryChange } from './../../interfaces/miseryChange';
+import { MiseryChange } from '../../interfaces/misery-change';
 import { Router } from '@angular/router';
 import { PlayerService } from './../../services/player.service';
 import { RoundService } from './../../services/round.service';
