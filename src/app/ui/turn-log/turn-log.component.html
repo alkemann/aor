@@ -52,7 +52,7 @@
         </tr>
         <tr>
             <td class="buttons">
-                {{RoundService.hand}} cards (${{spending.onHand}})
+                {{RoundService.handSize}} cards (${{spending.onHand}})
                 <button (click)="handSize(-1)">- card</button> &nbsp;
                 <button (click)="handSize(1)">+ card</button> &nbsp;
 
@@ -60,9 +60,9 @@
         </tr>
         <tr *ngIf="spending.onHand > 0">
             <th> + on Hand Stabilization <button (click)="toggleStabilization()">
-                {{this.RoundService.payingStabiliztion ? 'Paying' : 'Miserable'}}
+                {{this.RoundService.payingStabilization ? 'Paying' : 'Miserable'}}
             </button></th>
-            <td>${{RoundService.payingStabiliztion ? spending.onHand : 0}}</td>
+            <td>${{RoundService.payingStabilization ? spending.onHand : 0}}</td>
         </tr>
         <tr>
             <td class="buttons">
@@ -164,8 +164,8 @@
             </td>
         </tr>
         <tr>
-            <th> + on {{RoundService.tokens}}▣ Tokens</th>
-            <td class="top">${{RoundService.tokens}}</td>
+            <th> + on {{RoundService.buyingTokens}}▣ Tokens</th>
+            <td class="top">${{RoundService.buyingTokens}}</td>
         </tr>
 
         <tr>
@@ -189,7 +189,7 @@
         <th>Tokens</th>
         <th>Cash</th>
     </tr>
-    <tr *ngFor="let round of RoundService.rounds">
+    <tr *ngFor="let round of RoundService.roundLog()">
         <td>{{round.total}}</td><td>{{round.i}}</td><td>{{round.tokens}}</td><td>{{round.cash}}</td>
     </tr>
 </table>

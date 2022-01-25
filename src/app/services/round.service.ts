@@ -6,28 +6,16 @@ import { Advance } from '../interfaces/advance';
 import { MiseryChange } from '../interfaces/misery-change';
 import { RoundLog } from '../interfaces/round-log';
 import { User } from '../models/player';
+import { Round } from '../models/round';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoundService {
 
-  private r: number = 0;
-  public get round(): number { return this.r; };
-  public rounds: RoundLog[] = [];
-
-  public payingStabiliztion: boolean = true;
-  public hand: number = 0;
-  private buyingThisRound: Set<string> = new Set();
-  private _boughtCard: boolean = false;
-  private _relief: number = 0;
-  private _startCash: number = 0;
-  private _boughtTokens: number = 0;
-  private _tokens: number = 0;
-
-  public get exploreTokens(): number { return this._boughtTokens; };
-  public get tokens(): number { return this._tokens; }
-  public get writtenMoney(): number { return this._startCash; }
+  protected r: Round;
+  public get round(): number { return this.r.i; };
+  public rounds: Round[] = [];
 
   constructor(
     private AdvancesService: AdvancesService,
@@ -36,7 +24,7 @@ export class RoundService {
 
   public get advanceCost(): number {
     let out = 0;
-    Array.from(this.buyingThisRound).forEach(
+    Array.from(this.r.buyingAdvances).forEach(
       k => out += this.cost(this.AdvancesService.byKey(k))
     );
     return out;
@@ -54,21 +42,21 @@ export class RoundService {
 
   public get playerHasIR(): boolean {
     // Remove buyCheck to not allow Institutional Research same round
-    return this.PlayerService.player.owns("X") || this.buyCheck("X");
+    return this.PlayerService.player.owns("X") || this.r.buyCheck("X");
   }
 
   public buyCard() {
     if (this.PlayerService.player.owns("V")) {
-      this._boughtCard = !this._boughtCard;
+      this.r.card = !this.r.card;
     } else {
       throw new Error("Buyging card without Urban Ascendency!");
     }
   }
-  public get card(): boolean { return this._boughtCard; }
+  public get card(): boolean { return this.r.card; }
 
   public get stabilizationCost(): number {
     let out: number = 0;
-    for (let h = 1; h <= this.hand; h++) {
+    for (let h = 1; h <= this.r.hand; h++) {
       out += h;
     }
     if (this.PlayerService.player.owns("Z")) {
@@ -81,36 +69,13 @@ export class RoundService {
     return this.PlayerService.player.misery.failedStabilization(this.stabilizationCost);
   }
 
-  public buyRelief(n: number) {
-    this._relief += n;
-    this._relief = Math.max(0, this._relief);
-  }
-
   public get relief(): number {
-    return this._relief;
-  }
-
-  public buyTokens(n: number): void {
-    const want = this._tokens + n;
-    this._tokens = Math.min(36, Math.max(0, want));
-  }
-
-  public buyCheck(adv: string): boolean {
-    return this.buyingThisRound.has(adv);
-  }
-
-  public buyAdvanceToggle(adv: string): boolean {
-    if (this.buyingThisRound.has(adv)) {
-      this.buyingThisRound.delete(adv);
-    } else {
-      this.buyingThisRound.add(adv);
-    }
-    return false;
+    return this.r.relief;
   }
 
   public get reliefFromAdvances(): number {
     let out: number = 0;
-    this.buyingThisRound.forEach(k => {
+    this.r.buyingAdvances.forEach(k => {
       const a: Advance = this.AdvancesService.byKey(k);
       out += a.relief
     });
@@ -119,13 +84,13 @@ export class RoundService {
 
   public get mi(): number {
     let out: number = 0;
-    this.buyingThisRound.forEach(k => out += this.AdvancesService.byKey(k).misery ? 1 : 0);
+    this.r.buyingAdvances.forEach(k => out += this.AdvancesService.byKey(k).misery ? 1 : 0);
     return out;
   }
 
   public get advances(): Advance[] {
     let out: Advance[] = [];
-    this.buyingThisRound.forEach(
+    this.r.buyingAdvances.forEach(
       k => {
         let a = this.AdvancesService.byKey(k);
         a.cost = this.cost(a);
@@ -135,44 +100,52 @@ export class RoundService {
     return out;
   }
 
+  public buyCheck(adv: string): boolean { return this.r.buyCheck(adv); }
+  public buyTokens(n: number): void { return this.r.buyTokens(n); }
+  public buyRelief(n: number) { return this.r.buyRelief(n); }
+  public buyAdvanceToggle(adv: string): void { return this.r.buyAdvanceToggle(adv); }
+  public payingStabilizationToggle(): void { this.r.stabiliztion = ! this.r.stabiliztion; }
+  public adjustHand(n: number): void {
+    this.r.hand += n;
+    this.r.hand = Math.max(0, this.r.hand);
+  }
+  public get handSize(): number { return this.r.hand; }
+  public get payingStabilization(): boolean { return this.r.stabiliztion; }
+  public get buyingTokens(): number { return this.r.buyingTokens; }
+  public get exploreTokens(): number { return this.r.tokens; }
+
+  public roundLog(): RoundLog[] {
+    const rounds: RoundLog[] = this.rounds.map( (r: Round) => {
+      return {
+        i: r.i,
+        total: r.money,
+        tokens: r.tokens,
+        cash: r.endCash,
+      };
+    });
+    return rounds;
+  }
+
   public restart(): void {
-    this.r = 0;
-    this.hand = 1;
-    this._tokens = 0;
-    this._relief = 0;
-    this._boughtCard = false;
-    this._boughtTokens = 0
-    this._startCash = 40;
-    this.payingStabiliztion = true;
-    this.rounds = [];
+    this.r = new Round(0, 40, 0);
   }
 
   public startNextRound(tokens: number, cash: number): void {
-    let r;
-    if (r = this.rounds.pop()) {
-      r.cash = cash;
-      this.rounds.push(r);
+    const prev = this.r;
+    let i = 0;
+    let hand = 1;
+    if (prev) {
+      prev.endCash = cash;
+      i = prev.i + 1;
+      hand += prev.hand;
     }
-    this.r++;
-    this.hand++;
-    this._tokens = 0;
-    this._relief = 0;
-    this.payingStabiliztion = true;
-    this._boughtCard = false;
-    this._boughtTokens = tokens;
-    this._startCash = cash;
-    this.buyingThisRound = new Set();
-    this.rounds.push({
-      i: this.r - 1,
-      total: cash,
-      tokens,
-      cash: null,
-    });
+    this.r = new Round(i, cash, tokens, hand);
+    this.rounds.push(this.r);
   }
 
   public apply(): void {
     const player = this.PlayerService.player;
-    this.buyingThisRound.forEach(k => player.add(k));
+    this.r.buyingAdvances.forEach(k => player.add(k));
     const spending = this.spending();
     player.$ = spending.nextTurn;
     const miseryChange = this.miseryChange()
@@ -183,10 +156,10 @@ export class RoundService {
   public miseryChange(): MiseryChange {
     const misery = this.PlayerService.player.misery;
     let increases = this.mi;
-    if (this.payingStabiliztion === false) {
+    if (this.r.stabiliztion === false) {
       increases += misery.failedStabilization(this.stabilizationCost);
     }
-    if (this.buyingThisRound.has("K")) {
+    if (this.r.buyingAdvances.has("K")) {
       increases -= 1;
     }
     const fromIncreases = misery.miFromMoreLevels(increases);
@@ -221,29 +194,29 @@ export class RoundService {
     if (player instanceof User === false) {
       throw new Error("NO PLAYER");
     }
-    const playerHasClass = this.buyingThisRound.has("Z") || player.owns("Z");
+    const playerHasClass = this.r.buyingAdvances.has("Z") || player.owns("Z");
     const onAdvances: number = this.advanceCost ?? 0;
     const onMisery = this.relief;
     const onHand = this.stabilizationCost;
     const onCard = this.card ? 10 : 0;
     let subtotal = onAdvances + onMisery + onCard;
-    if (this.payingStabiliztion) {
+    if (this.r.stabiliztion) {
       subtotal += onHand;
     }
     const savings = player.$ - subtotal;
     const earnings = this.earnings(player.cities);
     const middleClass = playerHasClass? 10 : 0;
     let interest;
-    if (this.buyingThisRound.has("L") || player.owns("L")) {
+    if (this.r.buyingAdvances.has("L") || player.owns("L")) {
       interest = Math.min(savings, earnings + middleClass);
     } else {
       interest = 0;
     }
     const afterIncome = savings + interest + earnings + middleClass;
-    const onTokens = this.tokens;
+    const onTokens = this.r.buyingTokens;
     const nextTurn = afterIncome - onTokens;
     return {
-      startedWith: this._startCash,
+      startedWith: this.r.money,
       onAdvances,
       onCard,
       onHand,
@@ -259,4 +232,12 @@ export class RoundService {
     };
   }
 
+  public loadRounds(rounds: Round[]): void {
+    this.rounds = rounds;
+    let r = rounds.pop();
+    if (r instanceof Round) {
+      this.r = r;
+      this.rounds.push(r);
+    }
+  }
 }

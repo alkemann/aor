@@ -26,7 +26,7 @@ export class StartComponent implements OnInit {
 
   ngOnInit(): void {
     if (environment.testSetup) {
-      Promise.resolve().then(() => this.quickTestSetup());
+      // Promise.resolve().then(() => this.quickTestSetup());
     }
 
   }

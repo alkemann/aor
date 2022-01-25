@@ -58,7 +58,7 @@ export class TurnLogComponent implements OnInit {
     this.spending = this.RoundService.spending();
   }
   public toggleStabilization(): void {
-    this.RoundService.payingStabiliztion = ! this.RoundService.payingStabiliztion;
+    this.RoundService.payingStabilizationToggle();
     this.spending = this.RoundService.spending();
     this.miseryChange = this.RoundService.miseryChange();
   }
@@ -69,8 +69,7 @@ export class TurnLogComponent implements OnInit {
   }
 
   public handSize(n: number): void {
-    this.RoundService.hand += n;
-    this.RoundService.hand = Math.max(0, this.RoundService.hand);
+    this.RoundService.adjustHand(n);
     this.spending = this.RoundService.spending();
     this.miseryChange = this.RoundService.miseryChange();
   }

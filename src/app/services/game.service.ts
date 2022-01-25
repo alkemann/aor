@@ -1,4 +1,5 @@
-import { playerFromStateObject, PlayerState, userFromStateObject } from './../models/player';
+import { RoundState, roundFromStateObject } from './../models/round';
+import { playerFromStateObject, PlayerState, User, userFromStateObject } from './../models/player';
 import { AdvancesService } from './advances.service';
 import { Router } from '@angular/router';
 import { RoundService } from './round.service';
@@ -6,9 +7,7 @@ import { PlayerService } from './player.service';
 import { Injectable } from '@angular/core';
 import { Game, gameFromStateObject } from '../models/game';
 import { Rules } from '../interfaces/rules';
-import { Bid } from '../interfaces/bid';
 import { Score } from './../interfaces/score';
-import { Player, User } from '../models/player';
 
 @Injectable({
   providedIn: 'root'
@@ -85,33 +84,50 @@ export class GameService {
       const others = this.PlayerService.others.map( o => o.makeStateObject() );
       localStorage.setItem('others', JSON.stringify(others));
     }
+    if (this.RoundService.rounds.length > 0) {
+      const rounds = this.RoundService.rounds.map( r => r.makeStateObject() );
+      localStorage.setItem('rounds', JSON.stringify(rounds));
+    }
   }
 
   public load(): void {
     console.warn("Loading game state from local storage!");
+
     const gameState = JSON.parse(localStorage.getItem('game') ?? 'false');
     if (gameState) {
       this._game = gameFromStateObject(gameState);
     } else  {
-      console.error("LOAD FAILED: No game state");
-      return;
+      this.loadFailed(" No game state"); return;
     }
+
     const playerState = JSON.parse(localStorage.getItem('user') ?? 'false');
     let player: User;
     if (playerState) {
       this.PlayerService.player = player = userFromStateObject(playerState); new User(playerState.name);
     } else {
-      console.error("LOAD FAILED: No user state");
-      return;
+      this.loadFailed("No user state"); return;
     }
+
     const othersState = JSON.parse(localStorage.getItem('others') ?? 'false');
     if (othersState) {
       this.PlayerService.others = othersState.map( (oState: PlayerState) => playerFromStateObject(oState) );
     } else {
-      console.error("LOAD FAILED: No others' state");
-      return;
+      this.loadFailed("No others' state"); return;
     }
     this.PlayerService.setBids();
+
+    const roundsState = JSON.parse(localStorage.getItem('rounds') ?? 'false');
+    if (roundsState) {
+      this.RoundService.loadRounds(roundsState.map( (rState: RoundState) => roundFromStateObject(rState) ));
+    } else {
+      this.loadFailed("No rounds' state"); return;
+    }
+
     this.Router.navigate(['turn']);
+  }
+
+  private loadFailed(msg: string): void {
+    console.error(`LOAD FAILED: ${msg}`);
+    this.restart();
   }
 }
