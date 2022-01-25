@@ -1,6 +1,7 @@
 import { AdvancesService } from 'src/app/services/advances.service';
 import { Injectable } from '@angular/core';
 import { Player, User } from '../models/player';
+import { Bid } from '../interfaces/bid';
 
 interface CatCount {
   [key:string]: number
@@ -14,6 +15,8 @@ export class PlayerService {
   player: User;
   others: Player[] = [];
 
+  private _bids: Bid[] = [];
+
   constructor(private AdvancesService: AdvancesService) { }
 
   newPlayer(name: string = 'player'): void {
@@ -22,6 +25,18 @@ export class PlayerService {
 
   newOtherPlayer(name: string): void {
     this.others.push(new Player(name));
+  }
+
+  public get bids(): Bid[] { return this._bids; }
+
+  setBids(): void {
+    const bids: Bid[] = [];
+    bids.push({name: this.player.name, $: this.player.bid, nation: this.player.nation});
+    this.others.forEach(p => bids.push({
+      name: p.name, $: p.bid, nation: p.nation
+    }));
+    bids.sort( (a,b) => a.$ < b.$ ? 1 : -1 );
+    this._bids = bids;
   }
 
   public get miseryReliefLevels(): number {
@@ -46,5 +61,6 @@ export class PlayerService {
   public restart(): void {
     this.player = new User("PLACEHOLDER");
     this.others = [];
+    this._bids = [];
   }
 }

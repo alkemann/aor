@@ -1,9 +1,9 @@
 <div id="content" *ngIf="PlayerService.player && GameService.game">
 <h2>TURN LOG</h2>
 <table id="bids" [cellPadding]="0" [cellSpacing]="0" >
-    <tr><th [colSpan]="GameService.bids.length">Capital bids</th></tr>
+    <tr><th [colSpan]="PlayerService.bids.length">Capital bids</th></tr>
     <tr>
-        <td *ngFor="let bid of GameService.bids">{{bid.name}}<br>{{bid.nation}} ({{bid.$}})</td>
+        <td *ngFor="let bid of PlayerService.bids">{{bid.name}}<br>{{bid.nation}} ({{bid.$}})</td>
     </tr>
 </table>
 

@@ -15,10 +15,8 @@ import { Player, User } from '../models/player';
 })
 export class GameService {
 
-  private _bids: Bid[];
   private _game: Game|null;
   public get game(): boolean { return this._game instanceof Game && this._game.started; }
-
 
   constructor(
     private Router: Router,
@@ -41,16 +39,8 @@ export class GameService {
       console.error("Game started before created!");
       return;
     }
+    this.PlayerService.setBids();
     const player = this.PlayerService.player;
-
-    const bids: Bid[] = [];
-    bids.push({name: player.name, $: player.bid, nation: player.nation});
-    this.PlayerService.others.forEach(p => bids.push({
-      name: p.name, $: p.bid, nation: p.nation
-    }));
-    bids.sort( (a,b) => a.$ < b.$ ? 1 : -1 );
-    this._bids = bids;
-
     player.spend(tokens);
     this.RoundService.startNextRound(tokens, player.$);
     this._game.startGame();
@@ -65,10 +55,6 @@ export class GameService {
 
   public numberOfPlayers(): number { return this._game ? this._game.playerCount : 0; }
 
-  public get bids(): any[] {
-    return this._bids;
-  }
-
   public score(): Score {
     const player = this.PlayerService.player;
     const cash = player.$;
@@ -82,7 +68,6 @@ export class GameService {
   }
 
   public restart(): void {
-    this._bids = [];
     this._game = null;
     this.RoundService.restart();
     this.PlayerService.restart();
@@ -126,15 +111,7 @@ export class GameService {
       console.error("LOAD FAILED: No others' state");
       return;
     }
-
-    const bids: Bid[] = [];
-    bids.push({name: player.name, $: player.bid, nation: player.nation});
-    this.PlayerService.others.forEach(p => bids.push({
-      name: p.name, $: p.bid, nation: p.nation
-    }));
-    bids.sort( (a,b) => a.$ < b.$ ? 1 : -1 );
-    this._bids = bids;
-
+    this.PlayerService.setBids();
     this.Router.navigate(['turn']);
   }
 }
