@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Advance } from '../interfaces/advance';
 import { MiseryChange } from '../interfaces/miseryChange';
 import { Round } from '../interfaces/round';
+import { User } from '../models/player';
 
 @Injectable({
   providedIn: 'root'
@@ -217,6 +218,9 @@ export class RoundService {
 
   public spending(): Spending {
     const player = this.PlayerService.player;
+    if (player instanceof User === false) {
+      throw new Error("NO PLAYER");
+    }
     const playerHasClass = this.buyingThisRound.has("Z") || player.owns("Z");
     const onAdvances: number = this.advanceCost ?? 0;
     const onMisery = this.relief;

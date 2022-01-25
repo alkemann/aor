@@ -1,6 +1,6 @@
 import { AdvancesService } from 'src/app/services/advances.service';
 import { Injectable } from '@angular/core';
-import { Player } from '../models/player';
+import { Player, User } from '../models/player';
 
 interface CatCount {
   [key:string]: number
@@ -11,13 +11,13 @@ interface CatCount {
 })
 export class PlayerService {
 
-  player: Player;
+  player: User;
   others: Player[] = [];
 
   constructor(private AdvancesService: AdvancesService) { }
 
   newPlayer(name: string = 'player'): void {
-    this.player = new Player(name);
+    this.player = new User(name);
   }
 
   newOtherPlayer(name: string): void {
@@ -44,7 +44,7 @@ export class PlayerService {
   }
 
   public restart(): void {
-    this.player = new Player("PLACEHOLDER");
+    this.player = new User("PLACEHOLDER");
     this.others = [];
   }
 }

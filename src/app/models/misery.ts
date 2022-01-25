@@ -8,7 +8,7 @@ const levels = [
 
 export class Misery {
 
-  private m: number = 0;
+  constructor(private m: number = 0) {}
 
   public get level(): number { return levels[this.m]; }
 

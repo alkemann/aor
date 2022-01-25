@@ -1,4 +1,9 @@
 <h2>Start</h2>
+
+<div>
+  <button (click)="GameService.load()">LOAD</button>
+</div>
+
 <container-element [ngSwitch]="phase">
 
   <ui-start-create *ngSwitchCase="0" (done)="after()"></ui-start-create>

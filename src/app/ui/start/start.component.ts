@@ -18,7 +18,7 @@ export class StartComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private GameService: GameService,
+    public GameService: GameService,
     private PlayerService: PlayerService,
   ) {
     this.phase = StartPhases.CREATE;
@@ -67,7 +67,7 @@ export class StartComponent implements OnInit {
     this.router.navigate(['turn']);
 
     // add some fake turns
-    player.earn = 400;
+    player.earn(400);
     player.misery.incByLevel(4);
     player.add("A");
     player.add("B");

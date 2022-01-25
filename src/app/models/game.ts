@@ -2,19 +2,21 @@ import { Bid } from '../interfaces/bid';
 import { Rules } from '../interfaces/rules';
 import { Nation } from './../enums/nation';
 
+interface GameState {
+  playerCount: number;
+  rules: Rules;
+  started: boolean;
+}
 
 export class Game {
 
-  public playerCount: number;
-  private _rules: Rules;
-  public started: boolean = false;
 
-  constructor(pc: number, rules: Rules) {
-    this.playerCount = pc;
-    this._rules = rules;
+  constructor(
+    public readonly playerCount: number,
+    private readonly rules: Rules,
+    public started: boolean = false,
+    ) {
   }
-
-  public get rules(): Rules { return this._rules; }
 
   public startGame(): void {
     this.started = true;
@@ -25,6 +27,14 @@ export class Game {
     // this._bids.push(bid);
     // this._bids.sort((a, b) => a.$ > b.$ ? -1 : 1);
     return bid;
+  }
+
+  saveableObject(): GameState {
+    return {
+      playerCount: this.playerCount,
+      rules: this.rules,
+      started: this.started,
+    };
   }
 
 }
