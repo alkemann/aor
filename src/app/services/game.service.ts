@@ -61,7 +61,7 @@ export class GameService {
     this.AdvancesService.all().forEach(k => {
       advances += player.owns(k.key) ? k.points : 0;
     });
-    const misery = player.misery.level;
+    const misery = player.misery.value;
     const total = cash + advances - misery;
     return {cash, advances, misery, total};
   }

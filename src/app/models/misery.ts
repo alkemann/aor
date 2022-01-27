@@ -10,7 +10,8 @@ export class Misery {
 
   constructor(private m: number = 0) {}
 
-  public get level(): number { return levels[this.m]; }
+  public get step(): number { return this.m; }
+  public get value(): number { return levels[this.m]; }
 
   public incByValue(v: number): void {
     const l = this.changeToSteps(v);
@@ -32,17 +33,17 @@ export class Misery {
   }
 
   public changeToSteps(valueChange: number): number {
-    const newValue = Math.max(0, this.level + valueChange);
+    const newValue = Math.max(0, this.value + valueChange);
     return this.levelOf(newValue) - this.m;
   }
 
   public miFromMoreLevels(increases: number): number {
     const step = this.m + increases;
-    return levels[step] - this.level;
+    return levels[step] - this.value;
   }
 
   public failedStabilization(stabilizationCost: number): number {
-    const new_value = this.level + stabilizationCost;
+    const new_value = this.value + stabilizationCost;
     for (let i = this.m; i < levels.length; i++) {
       if (levels[i] === new_value) {
         return i - this.m;

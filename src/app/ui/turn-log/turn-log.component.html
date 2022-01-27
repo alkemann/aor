@@ -13,7 +13,7 @@
     <table id="spending" [cellPadding]="5" [cellSpacing]="5">
         <tr>
             <th>Current Misery index</th>
-            <td>{{PlayerService.player.misery.level}}m</td>
+            <td>{{PlayerService.player.misery.value}}m</td>
         </tr>
         <tr>
             <th>Tokens to spend</th>
@@ -66,7 +66,7 @@
         </tr>
         <tr>
             <td class="buttons">
-                Misery: {{PlayerService.player.misery.level}}m
+                Misery: {{PlayerService.player.misery.value}}m
                 <button (click)="adjustMisery(-1)">-1 level</button> &nbsp;
                 <button (click)="adjustMisery(1)">+1 level</button> &nbsp;
             </td>

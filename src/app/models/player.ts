@@ -80,7 +80,7 @@ export class User extends Player {
 
   override makeStateObject(): UserState {
     const obj = super.makeStateObject();
-    obj.misery = this.misery.level;
+    obj.misery = this.misery.step;
     obj.cities = this.cities;
     obj.gold = this.$;
     return obj;
