@@ -1,0 +1,14 @@
+
+<div class="content">
+  <h2>Provinces</h2>
+  <p>Which Provinces do you control?</p>
+  <div class="cities">
+    <form (change)="changed" >
+    <div class="city" *ngFor="let p of provinces">
+      <mat-checkbox [checked]="check(p.name)" (change)="changed($event)" [name]="p.name">
+        {{p.name}} {{toSymbol(p.market)}}
+      </mat-checkbox>
+    </div>
+    </form>
+  </div>
+</div>

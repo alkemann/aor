@@ -142,9 +142,7 @@
         </tr>
         <tr>
             <th>
-                <button (click)="cities(-1)">-1</button> &nbsp;
-                <button (click)="cities(1)">+1</button> &nbsp;
-                + {{PlayerService.player.cities}} Cities
+                + {{PlayerService.player.cities.length}} Cities
                 <span *ngIf="spending.middleClass != 0">+ Middle Class</span>
             </th>
             <td>${{spending.earnings + spending.middleClass}}</td>

@@ -204,7 +204,7 @@ export class RoundService {
       subtotal += onHand;
     }
     const savings = player.$ - subtotal;
-    const earnings = this.earnings(player.cities);
+    const earnings = this.earnings(player.cities.length);
     const middleClass = playerHasClass? 10 : 0;
     let interest;
     if (this.r.buyingAdvances.has("L") || player.owns("L")) {

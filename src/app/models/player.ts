@@ -54,7 +54,7 @@ export class Player implements PlayerInterface, Storable {
 export class User extends Player {
 
   public misery: Misery = new Misery();
-  public cities: number = 1;
+  public cities: string[] = [];
 
   private _gold: number = 40;
 
@@ -96,7 +96,7 @@ export interface PlayerState {
 
 export interface UserState extends PlayerState {
   misery: number;
-  cities: number;
+  cities: string[];
   gold: number;
 }
 

@@ -18,6 +18,11 @@ import { BidComponent } from './ui/start/bid/bid.component';
 import { DevideComponent } from './ui/start/devide/devide.component';
 import { TokensComponent } from './ui/start/tokens/tokens.component';
 import { StaticComponent } from './ui/static/static.component';
+import { CitiesComponent } from './ui/cities/cities.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 @NgModule({
   declarations: [
@@ -35,11 +40,14 @@ import { StaticComponent } from './ui/static/static.component';
     DevideComponent,
     TokensComponent,
     StaticComponent,
+    CitiesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    BrowserAnimationsModule,
+    MatCheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

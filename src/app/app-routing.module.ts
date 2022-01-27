@@ -7,11 +7,13 @@ import { AdvancesComponent } from './ui/advances/advances.component';
 import { PlayersComponent } from './ui/players/players.component';
 import { EndComponent } from './ui/end/end.component';
 import { StaticComponent } from './ui/static/static.component';
+import { CitiesComponent } from './ui/cities/cities.component';
 
 const routes: Routes = [
   { path: 'start', component: StartComponent },
   { path: 'turn', component: TurnLogComponent },
   { path: 'advances', component: AdvancesComponent },
+  { path: 'cities', component: CitiesComponent },
   { path: 'players', component: PlayersComponent },
   { path: 'end', component: EndComponent },
   { path: 'static', component: StaticComponent },

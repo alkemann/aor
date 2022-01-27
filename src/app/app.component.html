@@ -7,6 +7,7 @@
     <li *ngIf="GameService.game == false"><a routerLink="/start" >start</a></li>
     <li *ngIf="GameService.game"><a routerLink="/turn" >turn</a></li>
     <li *ngIf="GameService.game"><a routerLink="/advances" >advances</a></li>
+    <li *ngIf="GameService.game"><a routerLink="/cities" >cities</a></li>
     <li *ngIf="GameService.game"><a routerLink="/players" >players</a></li>
     <!-- <li *ngIf="GameService.game"><a routerLink="/static" >end</a></li> -->
     <li *ngIf="GameService.game"><a routerLink="/end" routerLinkActive="active">end</a></li>

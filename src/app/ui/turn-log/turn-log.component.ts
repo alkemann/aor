@@ -63,11 +63,6 @@ export class TurnLogComponent implements OnInit {
     this.miseryChange = this.RoundService.miseryChange();
   }
 
-  public cities(n: number): void {
-    this.PlayerService.player.cities += n;
-    this.spending = this.RoundService.spending();
-  }
-
   public handSize(n: number): void {
     this.RoundService.adjustHand(n);
     this.spending = this.RoundService.spending();
