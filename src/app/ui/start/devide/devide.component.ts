@@ -47,6 +47,7 @@ export class DevideComponent implements OnInit {
 
   public submit(form:NgForm): void {
     this.PlayerService.player.nation = form.value.myNation;
+    this.PlayerService.player.cities = [this.PlayerService.player.nation];
     const players = this.PlayerService.others;
     for (let i = 0; i < players.length; i++) {
       const player = players[i];

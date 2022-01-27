@@ -43,6 +43,7 @@ export class GameService {
     player.spend(tokens);
     this.RoundService.startNextRound(tokens, player.$);
     this._game.startGame();
+    this.save();
   }
 
   public nextTurn(): void {
