@@ -26,7 +26,7 @@ export class StartComponent implements OnInit {
 
   ngOnInit(): void {
     if (environment.testSetup) {
-      // Promise.resolve().then(() => this.quickTestSetup());
+      Promise.resolve().then(() => this.quickTestSetup());
     }
 
   }
@@ -35,7 +35,7 @@ export class StartComponent implements OnInit {
 
     // create
     this.GameService.createGame({
-      count: "5",
+      count: "6",
       sameTurnResearch: true
     });
 
@@ -45,11 +45,13 @@ export class StartComponent implements OnInit {
     this.PlayerService.newOtherPlayer("Erlend");
     this.PlayerService.newOtherPlayer("Steffen");
     this.PlayerService.newOtherPlayer("Daniel");
+    this.PlayerService.newOtherPlayer("Pål");
 
     // bid
     const player = this.PlayerService.player;
     player.payForBid(4);
 
+    /*
     // devide
     this.PlayerService.player.nation = Nation.Paris;
     const players = this.PlayerService.others;
@@ -85,6 +87,8 @@ export class StartComponent implements OnInit {
 
     player.add("V");
     player.add("Z");
+    */
+    this.phase = 3;
   }
 
   public after(): void {

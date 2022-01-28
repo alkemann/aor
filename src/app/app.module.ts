@@ -22,6 +22,8 @@ import { CitiesComponent } from './ui/cities/cities.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+// import { MatChipsModule } from '@angular/material/chips';
 
 
 @NgModule({
@@ -48,6 +50,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     FormsModule,
     BrowserAnimationsModule,
     MatCheckboxModule,
+    // MatChipsModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
