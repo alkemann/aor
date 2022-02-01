@@ -35,7 +35,7 @@ export class StartComponent implements OnInit {
 
     // create
     this.GameService.createGame({
-      count: "6",
+      count: "5",
       sameTurnResearch: true
     });
 
@@ -45,15 +45,15 @@ export class StartComponent implements OnInit {
     this.PlayerService.newOtherPlayer("Erlend");
     this.PlayerService.newOtherPlayer("Steffen");
     this.PlayerService.newOtherPlayer("Daniel");
-    this.PlayerService.newOtherPlayer("Pål");
+    // this.PlayerService.newOtherPlayer("Pål");
 
     // bid
     const player = this.PlayerService.player;
     player.payForBid(4);
 
-    /*
+
     // devide
-    this.PlayerService.player.nation = Nation.Paris;
+    this.PlayerService.player.setStartCity(Nation.Paris);
     const players = this.PlayerService.others;
     players[0].nation = Nation.Barcelona;
     players[0].bid = 3;
@@ -61,8 +61,8 @@ export class StartComponent implements OnInit {
     players[1].bid = 5;
     players[2].nation = Nation.London;
     players[2].bid = 2;
-    players[3].nation = Nation.Genova;
-    players[3].bid = 4;
+    // players[3].nation = Nation.Genoa;
+    // players[3].bid = 4;
 
     // tokens
     this.GameService.start(25);
@@ -87,8 +87,6 @@ export class StartComponent implements OnInit {
 
     player.add("V");
     player.add("Z");
-    */
-    this.phase = 3;
   }
 
   public after(): void {

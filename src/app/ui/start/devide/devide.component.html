@@ -24,7 +24,15 @@
           <mat-option *ngFor="let nation of allNations" value="{{nation}}" [disabled]="!availableNations.has(nation)" >{{nation}}</mat-option>
           <mat-option style="color:#999"> -- </mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field> &nbsp;
+      <mat-slider
+          (change)="bidFor($event, key)"
+          thumbLabel
+          tickInterval="1"
+          step="1"
+          min="0"
+          max="10"
+          aria-label="units"></mat-slider>
     </div>
 
     <input type="submit" value="Apply">

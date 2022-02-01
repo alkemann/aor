@@ -23,6 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSliderModule } from '@angular/material/slider';
 // import { MatChipsModule } from '@angular/material/chips';
 
 
@@ -52,6 +53,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatCheckboxModule,
     // MatChipsModule,
     MatSelectModule,
+    MatSliderModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

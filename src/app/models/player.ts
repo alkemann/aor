@@ -85,6 +85,11 @@ export class User extends Player {
     obj.gold = this.$;
     return obj;
   }
+
+  public setStartCity(n: Nation): void {
+    this.nation = n;
+    this.cities = [n];
+  }
 }
 
 export interface PlayerState {

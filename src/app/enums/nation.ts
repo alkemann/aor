@@ -4,5 +4,5 @@ export enum Nation {
   London = "London",
   Barcelona = "Barcelona",
   Venice = "Venice",
-  Genova = "Genova"
+  Genoa = "Genoa"
 }

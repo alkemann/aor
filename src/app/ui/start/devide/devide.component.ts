@@ -8,6 +8,9 @@ import { FormControl, NgForm } from '@angular/forms';
 interface SelectArr {
   [key: string]: string;
 }
+interface BidsArr {
+  [key: string]: number;
+}
 
 @Component({
   selector: 'ui-start-devide',
@@ -20,8 +23,6 @@ export class DevideComponent implements OnInit {
 
   public availableNations: Set<string>;
   public allNations: string[];
-
-  disableSelect = new FormControl(false);
 
   public myNation: Nation;
   public otherNations: Nation[];
@@ -37,8 +38,10 @@ export class DevideComponent implements OnInit {
   public get playerKeys(): any { return this.pk; }
   public get playerNames(): string[] { return this.pn; }
 
-  private keys: string[] = ['user', '0', '1', '2'];
+  private keys: string[] = ['user', '0', '1'];
   private selectedCity: SelectArr = {'user': '', '0': '', '1': ''};
+  private bids : BidsArr = {'0':0, '1': 0};
+
 
   ngOnInit(): void {
     this.pk = Array.from(Array(this.GameService.numberOfPlayers()-1).keys())
@@ -53,38 +56,43 @@ export class DevideComponent implements OnInit {
       an.push('Paris');
       this.keys.push('2');
       this.selectedCity['2'] = '';
+      this.bids['2'] = 0;
     }
     if (p >= 5) {
       an.push('London');
       this.keys.push('3');
       this.selectedCity['3'] = '';
+      this.bids['3'] = 0;
     }
     if (p >= 6) {
       an.push('Hamburg');
       this.keys.push('4');
       this.selectedCity['4'] = '';
+      this.bids['4'] = 0;
     }
     this.allNations = an;
     this.availableNations = new Set<string>(an);
   }
 
-
   public submit(form:NgForm): void {
-    console.log(this.selectedCity);
     for (let i = 0; i < this.keys.length; i++) {
       const element = this.keys[i];
       if (this.selectedCity[i] === '') return;
 
     }
-    this.PlayerService.player.nation = form.value.myNation;
-    this.PlayerService.player.cities = [this.PlayerService.player.nation];
+    const startNation = Nation[this.selectedCity['user'] as keyof typeof Nation];
+    this.PlayerService.player.setStartCity(startNation);
     const players = this.PlayerService.others;
     for (let i = 0; i < players.length; i++) {
       const player = players[i];
-      player.nation = form.value['player-nation-' + i];
-      player.bid = form.value['player-bid-' + i];
+      player.nation = Nation[this.selectedCity[i] as keyof typeof Nation];
+      player.bid = this.bids[i];
     }
     this.done.emit();
+  }
+
+  bidFor($event: any, key: any): any {
+    this.bids[key] = $event.value
   }
 
   selectedFor($event: any, key: string): any {
@@ -97,10 +105,5 @@ export class DevideComponent implements OnInit {
     });
     return true;
   }
-
-  // public drop(event: CdkDragDrop<string[]>): void {
-  //   console.log(event);
-  //   moveItemInArray(this.vegetables, event.previousIndex, event.currentIndex);
-  // }
 
 }
