@@ -44,8 +44,7 @@ export class StartComponent implements OnInit {
     this.PlayerService.newOtherPlayer("Tord");
     this.PlayerService.newOtherPlayer("Erlend");
     this.PlayerService.newOtherPlayer("Steffen");
-    this.PlayerService.newOtherPlayer("Daniel");
-    // this.PlayerService.newOtherPlayer("Pål");
+    this.PlayerService.newOtherPlayer("Pål");
 
     // bid
     const player = this.PlayerService.player;
@@ -61,8 +60,8 @@ export class StartComponent implements OnInit {
     players[1].bid = 5;
     players[2].nation = Nation.London;
     players[2].bid = 2;
-    // players[3].nation = Nation.Genoa;
-    // players[3].bid = 4;
+    players[3].nation = Nation.Genoa;
+    players[3].bid = 4;
 
     // tokens
     this.GameService.start(25);
